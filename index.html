@@ -869,7 +869,7 @@
           郵便番号・住所
         </div>
 
-        <div class="editable-display">
+                <div class="editable-display">
 
           <div>
 
@@ -880,8 +880,11 @@
 
             <div
               class="value address-value"
+              id="fullAddress"
               style="margin-top: 10px;"
-            >
+            ></div>
+
+            <div style="display: none;">
               <div id="address1"></div>
               <div id="address2"></div>
               <div id="address3"></div>
@@ -899,7 +902,7 @@
           </button>
 
         </div>
-
+        
         <div
   id="addressEditor"
   class="edit-panel"
@@ -1261,6 +1264,38 @@
           : String(value);
     }
 
+    function updateFullAddress() {
+
+  const address1 =
+    getDisplayedValue("address1");
+
+  const address2 =
+    getDisplayedValue("address2");
+
+  const address3 =
+    getDisplayedValue("address3");
+
+  const addressManual =
+    getDisplayedValue("addressManual");
+
+
+  const fullAddress =
+    [
+      address1,
+      address2,
+      address3,
+      addressManual
+    ]
+      .filter(Boolean)
+      .join("");
+
+
+  setText(
+    "fullAddress",
+    fullAddress
+  );
+
+}
 
     function showError(message) {
       document.getElementById("loading").style.display = "none";
@@ -1415,14 +1450,16 @@
         );
 
         setText(
-          "addressManual",
-          customer.addressManual
-        );
+  "addressManual",
+  customer.addressManual
+);
 
-        setText(
-          "carName",
-          customer.carName
-        );
+updateFullAddress();
+
+setText(
+  "carName",
+  customer.carName
+);
 
         setText(
           "registrationNumber",
@@ -2120,7 +2157,7 @@
       );
 
 
-        // ========================================
+       // ========================================
     // 住所を保存
     // ========================================
 
@@ -2230,6 +2267,10 @@
             "addressManual",
             addressManual
           );
+
+
+          // 住所1～4をつなげて通常表示を更新
+          updateFullAddress();
 
 
           document
