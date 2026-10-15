@@ -13,8 +13,8 @@
 
   body {
     margin: 0;
-    padding: 24px 16px;
-    background: #f1f6f3;
+    padding: 20px;
+    background-color: #f5f5f5;
     font-family:
       -apple-system,
       BlinkMacSystemFont,
@@ -23,125 +23,170 @@
       "Yu Gothic",
       Meiryo,
       sans-serif;
-    color: #26332c;
+    color: #444444;
   }
 
   .container {
     width: 100%;
-    max-width: 760px;
-    margin: 0 auto;
+    max-width: 650px;
+    margin: 40px auto;
   }
 
+  /* ====================================== */
   /* ページ上部 */
+  /* ====================================== */
+
   .page-header {
-    margin-bottom: 22px;
-    padding: 0 4px;
+    margin-bottom: 30px;
+    text-align: center;
   }
 
   .page-title {
     margin: 0;
-    color: #1f6d46;
-    font-size: 28px;
+    color: #00b84f;
+    font-size: 30px;
     font-weight: 700;
-    letter-spacing: 0.04em;
   }
 
   .page-subtitle {
     margin-top: 6px;
-    color: #789084;
-    font-size: 13px;
+    color: #888888;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
   }
 
   .vehicle-id {
     display: inline-block;
-    margin-top: 12px;
-    padding: 6px 12px;
-    background: #e3f2e9;
-    color: #1f6d46;
+    margin-top: 14px;
+    padding: 7px 14px;
+    background-color: #f0f8f3;
+    border: 1px solid #cfe8d7;
     border-radius: 999px;
+    color: #555555;
     font-size: 13px;
     font-weight: 600;
   }
 
-  /* カード */
+  /* ====================================== */
+  /* 情報カード */
+  /* ====================================== */
+
   .info-card {
-    margin-bottom: 18px;
-    overflow: hidden;
-    background: #ffffff;
-    border: 1px solid #dce9e1;
-    border-radius: 14px;
-    box-shadow: 0 3px 12px rgba(31, 109, 70, 0.06);
+    width: 100%;
+    margin-bottom: 24px;
+    padding: 30px;
+    background-color: #ffffff;
+    border-top: 5px solid #00c853;
+    border-radius: 12px;
+
+    box-shadow:
+      0 3px 8px rgba(0, 0, 0, 0.12);
   }
 
+  /* カードタイトル */
   .card-header {
-    padding: 13px 18px;
-    background: #287a50;
-    color: #ffffff;
-    font-size: 16px;
+    margin: 0 0 25px;
+    padding: 0;
+    background-color: transparent;
+    color: #00b84f;
+    font-size: 20px;
     font-weight: 700;
-    letter-spacing: 0.04em;
   }
 
   .card-body {
-    padding: 5px 20px;
+    padding: 0;
   }
 
-  /* 各項目 */
+  /* ====================================== */
+  /* 各表示項目 */
+  /* ====================================== */
+
   .row {
-    padding: 15px 0;
-    border-bottom: 1px solid #edf2ef;
+    margin-bottom: 24px;
+    padding: 0;
+    border: none;
   }
 
   .row:last-child {
-    border-bottom: none;
+    margin-bottom: 0;
   }
 
   .label {
-    margin-bottom: 5px;
-    color: #718077;
-    font-size: 12px;
+    display: block;
+    margin-bottom: 8px;
+    color: #444444;
+    font-size: 15px;
     font-weight: 600;
   }
 
   .value {
-    min-height: 25px;
-    color: #26332c;
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 1.5;
+    width: 100%;
+    min-height: 48px;
+    padding: 11px 12px;
+    background-color: #f7f7f7;
+    border: 1px solid #d5d5d5;
+    border-radius: 6px;
+    color: #333333;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.6;
     word-break: break-word;
   }
 
-  /* 氏名は少し強調 */
+  /* 氏名 */
   .name-value {
-    color: #174d33;
-    font-size: 22px;
+    color: #333333;
+    font-size: 18px;
+    font-weight: 700;
   }
 
   /* 住所 */
   .address-value {
+    min-height: 76px;
     line-height: 1.8;
   }
 
-  /* 読み込み中 */
-  #loading {
-    margin-top: 40px;
-    padding: 30px;
-    color: #1f6d46;
-    text-align: center;
-    font-size: 16px;
-    font-weight: 600;
+  .address-value div:empty {
+    display: none;
   }
 
+  /* ====================================== */
+  /* 読み込み中 */
+  /* ====================================== */
+
+  #loading {
+    width: 100%;
+    margin: 80px auto 0;
+    padding: 30px;
+    background-color: #ffffff;
+    border-top: 5px solid #00c853;
+    border-radius: 12px;
+    color: #00b84f;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+
+    box-shadow:
+      0 3px 8px rgba(0, 0, 0, 0.12);
+  }
+
+  /* ====================================== */
   /* エラー */
+  /* ====================================== */
+
   #error {
     display: none;
-    margin-bottom: 16px;
+    width: 100%;
+    margin-bottom: 24px;
     padding: 18px;
-    color: #a82323;
-    background: #fff1f1;
+    background-color: #fff1f1;
     border: 1px solid #efcccc;
-    border-radius: 12px;
+    border-left: 4px solid #d93025;
+    border-radius: 6px;
+    color: #d93025;
+    font-size: 14px;
+    line-height: 1.7;
     white-space: pre-wrap;
     word-break: break-word;
   }
@@ -150,29 +195,51 @@
     display: none;
   }
 
-  /* タブレット */
+  /* ====================================== */
+  /* スマートフォン・タブレット */
+  /* ====================================== */
+
   @media (max-width: 600px) {
     body {
-      padding: 16px 12px;
+      padding: 12px;
+    }
+
+    .container {
+      margin: 20px auto;
+    }
+
+    .page-header {
+      margin-bottom: 24px;
     }
 
     .page-title {
-      font-size: 24px;
+      font-size: 25px;
     }
 
-    .card-body {
-      padding: 4px 16px;
+    .info-card {
+      margin-bottom: 18px;
+      padding: 24px 18px;
+    }
+
+    .card-header {
+      margin-bottom: 22px;
+      font-size: 20px;
+    }
+
+    .row {
+      margin-bottom: 22px;
     }
 
     .value {
-      font-size: 17px;
+      font-size: 16px;
     }
 
     .name-value {
-      font-size: 21px;
+      font-size: 18px;
     }
   }
 </style>
+  
 </head>
 
 <body>
