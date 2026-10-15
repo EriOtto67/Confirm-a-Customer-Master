@@ -1254,7 +1254,18 @@
   <script>
     const FLOW_URL = "https://default1a2cf14ad33440fe9e6c8e9728b84d.0d.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/31/workflows/d16e39d6d0ff4faabbe0a9bf1ce2417b/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=oGGn3CgyfgKqxlSJIQu8y3GLl-AEn7PvQ3Jcuiistrg";
 
-    const vehicleId = "8832";
+    // ========================================
+    // URLから車両IDを取得
+    // 例：?vehicleId=8832
+    // ========================================
+
+    const urlParams =
+      new URLSearchParams(
+        window.location.search
+      );
+
+    const vehicleId =
+      urlParams.get("vehicleId");
 
 
     function setText(id, value) {
@@ -1311,6 +1322,23 @@
     async function loadCustomer() {
 
       try {
+
+        // ========================================
+        // 車両ID確認
+        // ========================================
+
+        if (!vehicleId) {
+
+          throw new Error(
+            "車両IDが指定されていません。kintoneの車両マスタから開いて下さい。"
+          );
+
+        }
+
+
+        // ========================================
+        // Power Automate URL確認
+        // ========================================
 
         if (
           !FLOW_URL ||
