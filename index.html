@@ -420,6 +420,73 @@
       padding: 14px;
     }
   }
+
+      /* ====================================== */
+  /* 住所編集 */
+  /* ====================================== */
+
+  .address-guide {
+    margin: 0 0 22px;
+    padding: 12px 14px;
+    background-color: #f0f8f3;
+    border-left: 4px solid #00b84f;
+    border-radius: 4px;
+    color: #555555;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .zip-input-guide {
+    margin-top: 7px;
+    color: #666666;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .zip-message {
+    min-height: 20px;
+    margin-top: 7px;
+    color: #666666;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .zip-message.success {
+    color: #00883b;
+  }
+
+  .zip-message.error {
+    color: #d93025;
+  }
+
+  .optional-label {
+    display: inline-block;
+    margin-left: 6px;
+    color: #888888;
+    font-size: 12px;
+    font-weight: normal;
+  }
+
+  .required-label {
+    display: inline-block;
+    margin-left: 6px;
+    color: #e74c3c;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .edit-form-group input[readonly] {
+    background-color: #eeeeee;
+    color: #666666;
+    border-color: #d5d5d5;
+    cursor: default;
+    caret-color: transparent;
+  }
+
+  .edit-form-group input[readonly]:focus {
+    border-color: #d5d5d5;
+    box-shadow: none;
+  }
     
 </style>
   
@@ -834,108 +901,146 @@
         </div>
 
         <div
-          id="addressEditor"
-          class="edit-panel"
-        >
+  id="addressEditor"
+  class="edit-panel"
+>
 
-          <div class="edit-form-group">
+  <div class="address-guide">
+    郵便番号を入力すると、住所1～3が自動反映します。<br>
+    住所4（丁目・番地・マンション・アパート）のみ入力して下さい。
+  </div>
 
-            <label for="editPostalCode">
-              郵便番号
-            </label>
+  <div class="edit-form-group">
 
-            <input
-              type="text"
-              id="editPostalCode"
-              inputmode="numeric"
-              maxlength="8"
-              placeholder="例：523-0892"
-            >
+    <label for="editPostalCode">
+      郵便番号
+    </label>
 
-          </div>
+    <input
+      type="text"
+      id="editPostalCode"
+      inputmode="numeric"
+      maxlength="8"
+      placeholder="例：523-0892"
+      autocomplete="postal-code"
+    >
 
-          <div class="edit-form-group">
+    <div class="zip-input-guide">
+      半角数字で入力してください（ハイフンは自動入力されます）。
+    </div>
 
-            <label for="editAddress1">
-              住所1
-            </label>
+    <div
+      id="editPostalCodeMessage"
+      class="zip-message"
+      aria-live="polite"
+    ></div>
 
-            <input
-              type="text"
-              id="editAddress1"
-              placeholder="都道府県"
-            >
+  </div>
 
-          </div>
+  <div class="edit-form-group">
 
-          <div class="edit-form-group">
+    <label for="editAddress1">
+      住所1
+      <span class="optional-label">
+        都道府県
+      </span>
+    </label>
 
-            <label for="editAddress2">
-              住所2
-            </label>
+    <input
+      type="text"
+      id="editAddress1"
+      placeholder="郵便番号から自動反映します"
+      autocomplete="address-level1"
+      readonly
+      tabindex="-1"
+    >
 
-            <input
-              type="text"
-              id="editAddress2"
-              placeholder="市区町村"
-            >
+  </div>
 
-          </div>
+  <div class="edit-form-group">
 
-          <div class="edit-form-group">
+    <label for="editAddress2">
+      住所2
+      <span class="optional-label">
+        市区町村
+      </span>
+    </label>
 
-            <label for="editAddress3">
-              住所3
-            </label>
+    <input
+      type="text"
+      id="editAddress2"
+      placeholder="郵便番号から自動反映します"
+      autocomplete="address-level2"
+      readonly
+      tabindex="-1"
+    >
 
-            <input
-              type="text"
-              id="editAddress3"
-              placeholder="町域"
-            >
+  </div>
 
-          </div>
+  <div class="edit-form-group">
 
-          <div class="edit-form-group">
+    <label for="editAddress3">
+      住所3
+      <span class="optional-label">
+        町域
+      </span>
+    </label>
 
-            <label for="editAddressManual">
-              住所4
-            </label>
+    <input
+      type="text"
+      id="editAddress3"
+      placeholder="郵便番号から自動反映します"
+      autocomplete="address-line1"
+      readonly
+      tabindex="-1"
+    >
 
-            <input
-              type="text"
-              id="editAddressManual"
-              placeholder="丁目・番地・マンション・アパート"
-            >
+  </div>
 
-          </div>
+  <div class="edit-form-group">
 
-          <div
-            id="editAddressMessage"
-            class="edit-message"
-          ></div>
+    <label for="editAddressManual">
+      住所4
+      <span class="required-label">
+        必須
+      </span>
+    </label>
 
-          <div class="edit-button-row">
+    <input
+      type="text"
+      id="editAddressManual"
+      placeholder="例：1丁目2-3 尾賀亀ハイツ105号室"
+      autocomplete="address-line2"
+    >
 
-            <button
-              type="button"
-              class="edit-cancel-button"
-              data-editor-id="addressEditor"
-            >
-              キャンセル
-            </button>
+  </div>
 
-            <button
-              type="button"
-              id="saveAddressButton"
-              class="edit-save-button"
-            >
-              保存
-            </button>
+  <div
+    id="editAddressMessage"
+    class="edit-message"
+  ></div>
 
-          </div>
+  <div class="edit-button-row">
 
-        </div>
+    <button
+      type="button"
+      class="edit-cancel-button"
+      data-editor-id="addressEditor"
+    >
+      キャンセル
+    </button>
+
+    <button
+      type="button"
+      id="saveAddressButton"
+      class="edit-save-button"
+    >
+      保存
+    </button>
+
+  </div>
+
+</div>
 
       </div>
 
@@ -1610,6 +1715,44 @@
     restrictPhoneInput(editPhoneMobileInput);
 
 
+        // ========================================
+    // 郵便番号検索メッセージ
+    // ========================================
+
+    const editPostalCodeMessage =
+      document.getElementById(
+        "editPostalCodeMessage"
+      );
+
+
+    function showEditPostalCodeMessage(
+      message,
+      type
+    ) {
+
+      editPostalCodeMessage.textContent =
+        message;
+
+      editPostalCodeMessage.className =
+        "zip-message";
+
+      if (type) {
+
+        editPostalCodeMessage.classList.add(
+          type
+        );
+
+      }
+
+    }
+
+
+    // ========================================
+    // 郵便番号入力
+    // 3桁入力後にハイフンを自動挿入
+    // Backspaceで通常どおり削除可能
+    // ========================================
+
     editPostalCodeInput.addEventListener(
       "input",
       function () {
@@ -1622,6 +1765,7 @@
 
         numbers =
           numbers.slice(0, 7);
+
 
         if (numbers.length > 3) {
 
@@ -1636,14 +1780,154 @@
 
         }
 
+
         document
           .getElementById(
             "editAddressMessage"
           )
           .textContent = "";
 
+
+        if (numbers.length === 0) {
+
+          editAddress1Input.value = "";
+          editAddress2Input.value = "";
+          editAddress3Input.value = "";
+
+          showEditPostalCodeMessage(
+            "",
+            ""
+          );
+
+          return;
+
+        }
+
+
+        if (numbers.length === 7) {
+
+          searchEditAddress(
+            this.value
+          );
+
+          return;
+
+        }
+
+
+        editAddress1Input.value = "";
+        editAddress2Input.value = "";
+        editAddress3Input.value = "";
+
+        showEditPostalCodeMessage(
+          "郵便番号を入力して下さい。例：523-0892",
+          ""
+        );
+
       }
     );
+
+
+    // ========================================
+    // 郵便番号から住所1～3を検索
+    // ========================================
+
+    async function searchEditAddress(
+      postalCode
+    ) {
+
+      showEditPostalCodeMessage(
+        "住所を検索しています。",
+        ""
+      );
+
+
+      try {
+
+        const url =
+          "https://zipcloud.ibsnet.co.jp/api/search?zipcode=" +
+          encodeURIComponent(
+            postalCode
+          );
+
+
+        const response =
+          await fetch(url);
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            "通信エラー：" +
+            response.status
+          );
+
+        }
+
+
+        const result =
+          await response.json();
+
+
+        if (
+          result.status !== 200 ||
+          !result.results ||
+          result.results.length === 0
+        ) {
+
+          editAddress1Input.value = "";
+          editAddress2Input.value = "";
+          editAddress3Input.value = "";
+
+          showEditPostalCodeMessage(
+            "該当する住所が見つかりませんでした。",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        const address =
+          result.results[0];
+
+
+        editAddress1Input.value =
+          address.address1 || "";
+
+        editAddress2Input.value =
+          address.address2 || "";
+
+        editAddress3Input.value =
+          address.address3 || "";
+
+
+        showEditPostalCodeMessage(
+          "住所1～3を自動入力しました。",
+          "success"
+        );
+
+
+        editAddressManualInput.focus();
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        editAddress1Input.value = "";
+        editAddress2Input.value = "";
+        editAddress3Input.value = "";
+
+        showEditPostalCodeMessage(
+          "住所を取得できませんでした。通信状況を確認して下さい。",
+          "error"
+        );
+
+      }
+
+    }
 
 
     document
@@ -1836,6 +2120,10 @@
       );
 
 
+        // ========================================
+    // 住所を保存
+    // ========================================
+
     document
       .getElementById("saveAddressButton")
       .addEventListener(
@@ -1843,19 +2131,29 @@
         function () {
 
           const postalCode =
-            editPostalCodeInput.value.trim();
+            editPostalCodeInput
+              .value
+              .trim();
 
           const address1 =
-            editAddress1Input.value.trim();
+            editAddress1Input
+              .value
+              .trim();
 
           const address2 =
-            editAddress2Input.value.trim();
+            editAddress2Input
+              .value
+              .trim();
 
           const address3 =
-            editAddress3Input.value.trim();
+            editAddress3Input
+              .value
+              .trim();
 
           const addressManual =
-            editAddressManualInput.value.trim();
+            editAddressManualInput
+              .value
+              .trim();
 
           const message =
             document.getElementById(
@@ -1881,10 +2179,25 @@
           }
 
 
+          if (
+            address1 === "" ||
+            address2 === ""
+          ) {
+
+            message.textContent =
+              "郵便番号から住所を取得して下さい。";
+
+            editPostalCodeInput.focus();
+
+            return;
+
+          }
+
+
           if (addressManual === "") {
 
             message.textContent =
-              "丁目・番地・マンション・アパートを入力して下さい。";
+              "住所4（丁目・番地・マンション・アパート）を入力して下さい。";
 
             editAddressManualInput.focus();
 
@@ -1918,13 +2231,17 @@
             addressManual
           );
 
+
           document
-            .getElementById("addressEditor")
-            .classList.remove("is-open");
+            .getElementById(
+              "addressEditor"
+            )
+            .classList.remove(
+              "is-open"
+            );
 
         }
       );
-
 
     document
       .getElementById("saveCarNameButton")
