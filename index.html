@@ -1254,6 +1254,8 @@
   <script>
     const FLOW_URL = "https://default1a2cf14ad33440fe9e6c8e9728b84d.0d.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/31/workflows/d16e39d6d0ff4faabbe0a9bf1ce2417b/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=oGGn3CgyfgKqxlSJIQu8y3GLl-AEn7PvQ3Jcuiistrg";
 
+    const UPDATE_FLOW_URL = "https://default1a2cf14ad33440fe9e6c8e9728b84d.0d.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/13/workflows/a747748dded248189952adfed727f2cc/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=4EDNWtR2d4YOWYqKZgozPTlgADce3_4h36oX-l2oSZk";
+    
     // ========================================
     // URLから車両IDを取得
     // 例：?vehicleId=8832
@@ -2054,45 +2056,174 @@ setText(
 
 
     document
-      .getElementById("saveNameButton")
-      .addEventListener(
-        "click",
-        function () {
+  .getElementById("saveNameButton")
+  .addEventListener(
+    "click",
+    async function () {
 
-          const value =
-            editNameInput.value.trim();
+      const value =
+        editNameInput.value.trim();
 
-          const message =
-            document.getElementById(
-              "editNameMessage"
-            );
+      const message =
+        document.getElementById(
+          "editNameMessage"
+        );
 
-          message.textContent = "";
-
-
-          if (value === "") {
-
-            message.textContent =
-              "氏名を入力して下さい。";
-
-            editNameInput.focus();
-
-            return;
-
-          }
+      const saveButton =
+        document.getElementById(
+          "saveNameButton"
+        );
 
 
-          setText(
-            "name",
-            value
+      message.textContent = "";
+
+
+      if (value === "") {
+
+        message.textContent =
+          "氏名を入力して下さい。";
+
+        editNameInput.focus();
+
+        return;
+
+      }
+
+
+      try {
+
+        // ========================================
+        // 保存中
+        // ========================================
+
+        saveButton.disabled = true;
+
+        saveButton.textContent =
+          "保存中...";
+
+
+        // ========================================
+        // Power Automateへ更新要求
+        // ========================================
+
+        const response =
+          await fetch(
+            UPDATE_FLOW_URL,
+            {
+
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body: JSON.stringify({
+                vehicleId: vehicleId,
+                field: "name",
+                value: value
+              })
+
+            }
           );
 
-          document
-            .getElementById("nameEditor")
-            .classList.remove("is-open");
+
+        const responseText =
+          await response.text();
+
+
+        console.log(
+          "氏名更新 HTTPステータス:",
+          response.status
+        );
+
+        console.log(
+          "氏名更新 Power Automate応答:",
+          responseText
+        );
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            "更新に失敗しました。HTTPステータス：" +
+            response.status
+          );
 
         }
-      );
+
+
+        let data;
+
+
+        try {
+
+          data =
+            JSON.parse(
+              responseText
+            );
+
+        } catch (error) {
+
+          throw new Error(
+            "Power Automateから正常なJSON応答が返されませんでした。"
+          );
+
+        }
+
+
+        if (data.success !== true) {
+
+          throw new Error(
+            "顧客マスタの更新に失敗しました。"
+          );
+
+        }
+
+
+        // ========================================
+        // kintone更新成功後に画面を書き換える
+        // ========================================
+
+        setText(
+          "name",
+          value
+        );
+
+
+        document
+          .getElementById(
+            "nameEditor"
+          )
+          .classList.remove(
+            "is-open"
+          );
+
+
+      } catch (error) {
+
+        console.error(
+          error
+        );
+
+        message.textContent =
+          error &&
+          error.message
+            ? error.message
+            : "顧客マスタの更新に失敗しました。";
+
+      } finally {
+
+        saveButton.disabled =
+          false;
+
+        saveButton.textContent =
+          "保存";
+
+      }
+
+    }
+  );
 
 
     document
