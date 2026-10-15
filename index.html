@@ -238,6 +238,189 @@
       font-size: 18px;
     }
   }
+
+      /* ====================================== */
+  /* 項目別修正 */
+  /* ====================================== */
+
+  .editable-display {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .editable-display .value {
+    min-width: 0;
+  }
+
+  .edit-button {
+    width: auto;
+    min-width: 72px;
+    height: 40px;
+    margin: 0;
+    padding: 0 14px;
+    border: none;
+    border-radius: 6px;
+    background-color: #555555;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .edit-button:hover {
+    background-color: #3f3f3f;
+  }
+
+  .edit-button:active {
+    background-color: #2f2f2f;
+  }
+
+  .edit-panel {
+    display: none;
+    margin-top: 14px;
+    padding: 16px;
+    background-color: #f7f7f7;
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+  }
+
+  .edit-panel.is-open {
+    display: block;
+  }
+
+  .edit-form-group {
+    margin-bottom: 16px;
+  }
+
+  .edit-form-group:last-child {
+    margin-bottom: 0;
+  }
+
+  .edit-form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #444444;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .edit-form-group input {
+    width: 100%;
+    height: 48px;
+    padding: 10px 12px;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+    color: #333333;
+    font-size: 16px;
+    outline: none;
+  }
+
+  .edit-form-group input:focus {
+    border-color: #00c853;
+    box-shadow: 0 0 0 2px rgba(0, 200, 83, 0.12);
+  }
+
+  .edit-message {
+    min-height: 20px;
+    margin-top: 8px;
+    color: #d93025;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .edit-button-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 18px;
+  }
+
+  .edit-button-row button {
+    flex: 1;
+    width: auto;
+    height: 44px;
+    margin: 0;
+    border: none;
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .edit-cancel-button {
+    background-color: #777777;
+  }
+
+  .edit-cancel-button:hover {
+    background-color: #666666;
+  }
+
+  .edit-save-button {
+    background-color: #00b84f;
+  }
+
+  .edit-save-button:hover {
+    background-color: #009f45;
+  }
+
+  .confirmation-card {
+    text-align: center;
+  }
+
+  .confirmation-text {
+    margin: 0 0 20px;
+    color: #555555;
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  .confirm-button {
+    width: 100%;
+    height: 50px;
+    margin: 0;
+    border: none;
+    border-radius: 6px;
+    background-color: #00b84f;
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .confirm-button:hover {
+    background-color: #009f45;
+  }
+
+  .confirm-button:active {
+    background-color: #00883b;
+  }
+
+  .confirm-message {
+    min-height: 22px;
+    margin-top: 12px;
+    color: #00883b;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  @media (max-width: 600px) {
+    .editable-display {
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .edit-button {
+      min-width: 68px;
+      padding: 0 12px;
+    }
+
+    .edit-panel {
+      padding: 14px;
+    }
+  }
+    
 </style>
   
 </head>
@@ -271,76 +454,161 @@
   </div>
 
 
-  <!-- お客様 -->
+  <!-- ====================================== -->
+  <!-- お客様情報 -->
+  <!-- ====================================== -->
+
   <div class="info-card">
 
     <div class="card-header">
-      お客様
+      お客様情報
     </div>
 
     <div class="card-body">
 
+      <!-- フリガナ -->
+
       <div class="row">
-        <div class="label">フリガナ</div>
-        <div class="value" id="furigana"></div>
+
+        <div class="label">
+          フリガナ
+        </div>
+
+        <div class="editable-display">
+
+          <div
+            class="value"
+            id="furigana"
+          ></div>
+
+          <button
+            type="button"
+            class="edit-button"
+            data-editor-id="furiganaEditor"
+          >
+            修正
+          </button>
+
+        </div>
+
+        <div
+          id="furiganaEditor"
+          class="edit-panel"
+        >
+
+          <div class="edit-form-group">
+
+            <label for="editFurigana">
+              フリガナ
+            </label>
+
+            <input
+              type="text"
+              id="editFurigana"
+              placeholder="例：ヤマダ タロウ"
+            >
+
+            <div
+              id="editFuriganaMessage"
+              class="edit-message"
+            ></div>
+
+          </div>
+
+          <div class="edit-button-row">
+
+            <button
+              type="button"
+              class="edit-cancel-button"
+              data-editor-id="furiganaEditor"
+            >
+              キャンセル
+            </button>
+
+            <button
+              type="button"
+              id="saveFuriganaButton"
+              class="edit-save-button"
+            >
+              保存
+            </button>
+
+          </div>
+
+        </div>
+
       </div>
 
-      <div class="row">
-        <div class="label">氏名</div>
-        <div class="value name-value" id="name"></div>
-      </div>
 
-    </div>
-
-  </div>
-
-
-  <!-- ご連絡先 -->
-  <div class="info-card">
-
-    <div class="card-header">
-      ご連絡先
-    </div>
-
-    <div class="card-body">
+      <!-- 氏名 -->
 
       <div class="row">
-        <div class="label">自宅番号</div>
-        <div class="value" id="phoneHome"></div>
-      </div>
 
-      <div class="row">
-        <div class="label">携帯番号</div>
-        <div class="value" id="phoneMobile"></div>
-      </div>
+        <div class="label">
+          氏名
+        </div>
 
-    </div>
+        <div class="editable-display">
 
-  </div>
+          <div
+            class="value name-value"
+            id="name"
+          ></div>
 
+          <button
+            type="button"
+            class="edit-button"
+            data-editor-id="nameEditor"
+          >
+            修正
+          </button>
 
-  <!-- ご住所 -->
-  <div class="info-card">
+        </div>
 
-    <div class="card-header">
-      ご住所
-    </div>
+        <div
+          id="nameEditor"
+          class="edit-panel"
+        >
 
-    <div class="card-body">
+          <div class="edit-form-group">
 
-      <div class="row">
-        <div class="label">郵便番号</div>
-        <div class="value" id="postalCode"></div>
-      </div>
+            <label for="editName">
+              氏名
+            </label>
 
-      <div class="row">
-        <div class="label">住所</div>
+            <input
+              type="text"
+              id="editName"
+              placeholder="例：山田 太郎"
+            >
 
-        <div class="value address-value">
-          <div id="address1"></div>
-          <div id="address2"></div>
-          <div id="address3"></div>
-          <div id="addressManual"></div>
+            <div
+              id="editNameMessage"
+              class="edit-message"
+            ></div>
+
+          </div>
+
+          <div class="edit-button-row">
+
+            <button
+              type="button"
+              class="edit-cancel-button"
+              data-editor-id="nameEditor"
+            >
+              キャンセル
+            </button>
+
+            <button
+              type="button"
+              id="saveNameButton"
+              class="edit-save-button"
+            >
+              保存
+            </button>
+
+          </div>
+
         </div>
 
       </div>
@@ -350,7 +618,336 @@
   </div>
 
 
+  <!-- ====================================== -->
+  <!-- ご連絡先 -->
+  <!-- ====================================== -->
+
+  <div class="info-card">
+
+    <div class="card-header">
+      ご連絡先
+    </div>
+
+    <div class="card-body">
+
+      <!-- 自宅番号 -->
+
+      <div class="row">
+
+        <div class="label">
+          自宅番号
+        </div>
+
+        <div class="editable-display">
+
+          <div
+            class="value"
+            id="phoneHome"
+          ></div>
+
+          <button
+            type="button"
+            class="edit-button"
+            data-editor-id="phoneHomeEditor"
+          >
+            修正
+          </button>
+
+        </div>
+
+        <div
+          id="phoneHomeEditor"
+          class="edit-panel"
+        >
+
+          <div class="edit-form-group">
+
+            <label for="editPhoneHome">
+              自宅番号
+            </label>
+
+            <input
+              type="tel"
+              id="editPhoneHome"
+              inputmode="tel"
+              placeholder="例：0748-12-3456"
+            >
+
+            <div
+              id="editPhoneHomeMessage"
+              class="edit-message"
+            ></div>
+
+          </div>
+
+          <div class="edit-button-row">
+
+            <button
+              type="button"
+              class="edit-cancel-button"
+              data-editor-id="phoneHomeEditor"
+            >
+              キャンセル
+            </button>
+
+            <button
+              type="button"
+              id="savePhoneHomeButton"
+              class="edit-save-button"
+            >
+              保存
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- 携帯番号 -->
+
+      <div class="row">
+
+        <div class="label">
+          携帯番号
+        </div>
+
+        <div class="editable-display">
+
+          <div
+            class="value"
+            id="phoneMobile"
+          ></div>
+
+          <button
+            type="button"
+            class="edit-button"
+            data-editor-id="phoneMobileEditor"
+          >
+            修正
+          </button>
+
+        </div>
+
+        <div
+          id="phoneMobileEditor"
+          class="edit-panel"
+        >
+
+          <div class="edit-form-group">
+
+            <label for="editPhoneMobile">
+              携帯番号
+            </label>
+
+            <input
+              type="tel"
+              id="editPhoneMobile"
+              inputmode="tel"
+              placeholder="例：090-1234-5678"
+            >
+
+            <div
+              id="editPhoneMobileMessage"
+              class="edit-message"
+            ></div>
+
+          </div>
+
+          <div class="edit-button-row">
+
+            <button
+              type="button"
+              class="edit-cancel-button"
+              data-editor-id="phoneMobileEditor"
+            >
+              キャンセル
+            </button>
+
+            <button
+              type="button"
+              id="savePhoneMobileButton"
+              class="edit-save-button"
+            >
+              保存
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ====================================== -->
+  <!-- ご住所 -->
+  <!-- ====================================== -->
+
+  <div class="info-card">
+
+    <div class="card-header">
+      ご住所
+    </div>
+
+    <div class="card-body">
+
+      <div class="row">
+
+        <div class="label">
+          郵便番号・住所
+        </div>
+
+        <div class="editable-display">
+
+          <div>
+
+            <div
+              class="value"
+              id="postalCode"
+            ></div>
+
+            <div
+              class="value address-value"
+              style="margin-top: 10px;"
+            >
+              <div id="address1"></div>
+              <div id="address2"></div>
+              <div id="address3"></div>
+              <div id="addressManual"></div>
+            </div>
+
+          </div>
+
+          <button
+            type="button"
+            class="edit-button"
+            data-editor-id="addressEditor"
+          >
+            修正
+          </button>
+
+        </div>
+
+        <div
+          id="addressEditor"
+          class="edit-panel"
+        >
+
+          <div class="edit-form-group">
+
+            <label for="editPostalCode">
+              郵便番号
+            </label>
+
+            <input
+              type="text"
+              id="editPostalCode"
+              inputmode="numeric"
+              maxlength="8"
+              placeholder="例：523-0892"
+            >
+
+          </div>
+
+          <div class="edit-form-group">
+
+            <label for="editAddress1">
+              住所1
+            </label>
+
+            <input
+              type="text"
+              id="editAddress1"
+              placeholder="都道府県"
+            >
+
+          </div>
+
+          <div class="edit-form-group">
+
+            <label for="editAddress2">
+              住所2
+            </label>
+
+            <input
+              type="text"
+              id="editAddress2"
+              placeholder="市区町村"
+            >
+
+          </div>
+
+          <div class="edit-form-group">
+
+            <label for="editAddress3">
+              住所3
+            </label>
+
+            <input
+              type="text"
+              id="editAddress3"
+              placeholder="町域"
+            >
+
+          </div>
+
+          <div class="edit-form-group">
+
+            <label for="editAddressManual">
+              住所4
+            </label>
+
+            <input
+              type="text"
+              id="editAddressManual"
+              placeholder="丁目・番地・マンション・アパート"
+            >
+
+          </div>
+
+          <div
+            id="editAddressMessage"
+            class="edit-message"
+          ></div>
+
+          <div class="edit-button-row">
+
+            <button
+              type="button"
+              class="edit-cancel-button"
+              data-editor-id="addressEditor"
+            >
+              キャンセル
+            </button>
+
+            <button
+              type="button"
+              id="saveAddressButton"
+              class="edit-save-button"
+            >
+              保存
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ====================================== -->
   <!-- お車 -->
+  <!-- ====================================== -->
+
   <div class="info-card">
 
     <div class="card-header">
@@ -359,17 +956,185 @@
 
     <div class="card-body">
 
-      <div class="row">
-        <div class="label">車名</div>
-        <div class="value" id="carName"></div>
-      </div>
+      <!-- 車名 -->
 
       <div class="row">
-        <div class="label">登録番号</div>
-        <div class="value" id="registrationNumber"></div>
+
+        <div class="label">
+          車名
+        </div>
+
+        <div class="editable-display">
+
+          <div
+            class="value"
+            id="carName"
+          ></div>
+
+          <button
+            type="button"
+            class="edit-button"
+            data-editor-id="carNameEditor"
+          >
+            修正
+          </button>
+
+        </div>
+
+        <div
+          id="carNameEditor"
+          class="edit-panel"
+        >
+
+          <div class="edit-form-group">
+
+            <label for="editCarName">
+              車名
+            </label>
+
+            <input
+              type="text"
+              id="editCarName"
+              placeholder="車名を入力して下さい"
+            >
+
+            <div
+              id="editCarNameMessage"
+              class="edit-message"
+            ></div>
+
+          </div>
+
+          <div class="edit-button-row">
+
+            <button
+              type="button"
+              class="edit-cancel-button"
+              data-editor-id="carNameEditor"
+            >
+              キャンセル
+            </button>
+
+            <button
+              type="button"
+              id="saveCarNameButton"
+              class="edit-save-button"
+            >
+              保存
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- 登録番号 -->
+
+      <div class="row">
+
+        <div class="label">
+          登録番号
+        </div>
+
+        <div class="editable-display">
+
+          <div
+            class="value"
+            id="registrationNumber"
+          ></div>
+
+          <button
+            type="button"
+            class="edit-button"
+            data-editor-id="registrationNumberEditor"
+          >
+            修正
+          </button>
+
+        </div>
+
+        <div
+          id="registrationNumberEditor"
+          class="edit-panel"
+        >
+
+          <div class="edit-form-group">
+
+            <label for="editRegistrationNumber">
+              登録番号
+            </label>
+
+            <input
+              type="text"
+              id="editRegistrationNumber"
+              placeholder="例：滋賀580あ1234"
+            >
+
+            <div
+              id="editRegistrationNumberMessage"
+              class="edit-message"
+            ></div>
+
+          </div>
+
+          <div class="edit-button-row">
+
+            <button
+              type="button"
+              class="edit-cancel-button"
+              data-editor-id="registrationNumberEditor"
+            >
+              キャンセル
+            </button>
+
+            <button
+              type="button"
+              id="saveRegistrationNumberButton"
+              class="edit-save-button"
+            >
+              保存
+            </button>
+
+          </div>
+
+        </div>
+
       </div>
 
     </div>
+
+  </div>
+
+
+  <!-- ====================================== -->
+  <!-- 確認完了 -->
+  <!-- ====================================== -->
+
+  <div class="info-card confirmation-card">
+
+    <div class="card-header">
+      登録内容の確認
+    </div>
+
+    <p class="confirmation-text">
+      各項目をご確認いただき、変更がある場合は「修正」を押して下さい。<br>
+      内容に間違いがなければ、下のボタンを押して下さい。
+    </p>
+
+    <button
+      type="button"
+      id="confirmCustomerInformationButton"
+      class="confirm-button"
+    >
+      この内容で確認しました
+    </button>
+
+    <div
+      id="confirmCustomerInformationMessage"
+      class="confirm-message"
+    ></div>
 
   </div>
 
@@ -579,8 +1344,700 @@
 
     }
 
+    // ========================================
+    // 項目別修正
+    // ========================================
 
+    const editFuriganaInput =
+      document.getElementById("editFurigana");
+
+    const editNameInput =
+      document.getElementById("editName");
+
+    const editPhoneHomeInput =
+      document.getElementById("editPhoneHome");
+
+    const editPhoneMobileInput =
+      document.getElementById("editPhoneMobile");
+
+    const editPostalCodeInput =
+      document.getElementById("editPostalCode");
+
+    const editAddress1Input =
+      document.getElementById("editAddress1");
+
+    const editAddress2Input =
+      document.getElementById("editAddress2");
+
+    const editAddress3Input =
+      document.getElementById("editAddress3");
+
+    const editAddressManualInput =
+      document.getElementById("editAddressManual");
+
+    const editCarNameInput =
+      document.getElementById("editCarName");
+
+    const editRegistrationNumberInput =
+      document.getElementById(
+        "editRegistrationNumber"
+      );
+
+
+    function getDisplayedValue(id) {
+
+      const element =
+        document.getElementById(id);
+
+      const value =
+        element.textContent.trim();
+
+      return value === "－"
+        ? ""
+        : value;
+
+    }
+
+
+    function closeAllEditors() {
+
+      document
+        .querySelectorAll(".edit-panel")
+        .forEach(function (editor) {
+
+          editor.classList.remove("is-open");
+
+        });
+
+    }
+
+
+    function clearEditMessages() {
+
+      document
+        .querySelectorAll(".edit-message")
+        .forEach(function (message) {
+
+          message.textContent = "";
+
+        });
+
+    }
+
+
+    function setEditorCurrentValue(editorId) {
+
+      clearEditMessages();
+
+
+      if (editorId === "furiganaEditor") {
+
+        editFuriganaInput.value =
+          getDisplayedValue("furigana");
+
+      }
+
+
+      if (editorId === "nameEditor") {
+
+        editNameInput.value =
+          getDisplayedValue("name");
+
+      }
+
+
+      if (editorId === "phoneHomeEditor") {
+
+        editPhoneHomeInput.value =
+          getDisplayedValue("phoneHome");
+
+      }
+
+
+      if (editorId === "phoneMobileEditor") {
+
+        editPhoneMobileInput.value =
+          getDisplayedValue("phoneMobile");
+
+      }
+
+
+      if (editorId === "addressEditor") {
+
+        editPostalCodeInput.value =
+          getDisplayedValue("postalCode");
+
+        editAddress1Input.value =
+          getDisplayedValue("address1");
+
+        editAddress2Input.value =
+          getDisplayedValue("address2");
+
+        editAddress3Input.value =
+          getDisplayedValue("address3");
+
+        editAddressManualInput.value =
+          getDisplayedValue("addressManual");
+
+      }
+
+
+      if (editorId === "carNameEditor") {
+
+        editCarNameInput.value =
+          getDisplayedValue("carName");
+
+      }
+
+
+      if (
+        editorId ===
+        "registrationNumberEditor"
+      ) {
+
+        editRegistrationNumberInput.value =
+          getDisplayedValue(
+            "registrationNumber"
+          );
+
+      }
+
+    }
+
+
+    document
+      .querySelectorAll(".edit-button")
+      .forEach(function (button) {
+
+        button.addEventListener(
+          "click",
+          function () {
+
+            const editorId =
+              this.dataset.editorId;
+
+            const editor =
+              document.getElementById(editorId);
+
+            closeAllEditors();
+
+            setEditorCurrentValue(editorId);
+
+            editor.classList.add("is-open");
+
+            const firstInput =
+              editor.querySelector("input");
+
+            if (firstInput) {
+
+              setTimeout(function () {
+
+                firstInput.focus();
+
+              }, 0);
+
+            }
+
+          }
+        );
+
+      });
+
+
+    document
+      .querySelectorAll(".edit-cancel-button")
+      .forEach(function (button) {
+
+        button.addEventListener(
+          "click",
+          function () {
+
+            const editorId =
+              this.dataset.editorId;
+
+            document
+              .getElementById(editorId)
+              .classList.remove("is-open");
+
+          }
+        );
+
+      });
+
+
+    function checkPhoneNumber(value) {
+
+      if (value === "") {
+
+        return true;
+
+      }
+
+      if (!/^[0-9-]+$/.test(value)) {
+
+        return false;
+
+      }
+
+      const hyphenCount =
+        (value.match(/-/g) || []).length;
+
+      return hyphenCount === 2;
+
+    }
+
+
+    function restrictPhoneInput(input) {
+
+      input.addEventListener(
+        "input",
+        function () {
+
+          this.value =
+            this.value.replace(
+              /[^0-9-]/g,
+              ""
+            );
+
+        }
+      );
+
+    }
+
+
+    restrictPhoneInput(editPhoneHomeInput);
+
+    restrictPhoneInput(editPhoneMobileInput);
+
+
+    editPostalCodeInput.addEventListener(
+      "input",
+      function () {
+
+        let numbers =
+          this.value.replace(
+            /[^0-9]/g,
+            ""
+          );
+
+        numbers =
+          numbers.slice(0, 7);
+
+        if (numbers.length > 3) {
+
+          this.value =
+            numbers.slice(0, 3) +
+            "-" +
+            numbers.slice(3);
+
+        } else {
+
+          this.value = numbers;
+
+        }
+
+        document
+          .getElementById(
+            "editAddressMessage"
+          )
+          .textContent = "";
+
+      }
+    );
+
+
+    document
+      .getElementById("saveFuriganaButton")
+      .addEventListener(
+        "click",
+        function () {
+
+          const value =
+            editFuriganaInput.value.trim();
+
+          const message =
+            document.getElementById(
+              "editFuriganaMessage"
+            );
+
+          message.textContent = "";
+
+
+          if (value === "") {
+
+            message.textContent =
+              "フリガナを入力して下さい。";
+
+            editFuriganaInput.focus();
+
+            return;
+
+          }
+
+
+          if (
+            !/^[ァ-ヶーＡ-Ｚａ-ｚ０-９　]+$/.test(
+              value
+            )
+          ) {
+
+            message.textContent =
+              "全角カタカナまたは全角英数字で入力して下さい。";
+
+            editFuriganaInput.focus();
+
+            return;
+
+          }
+
+
+          setText(
+            "furigana",
+            value
+          );
+
+          document
+            .getElementById("furiganaEditor")
+            .classList.remove("is-open");
+
+        }
+      );
+
+
+    document
+      .getElementById("saveNameButton")
+      .addEventListener(
+        "click",
+        function () {
+
+          const value =
+            editNameInput.value.trim();
+
+          const message =
+            document.getElementById(
+              "editNameMessage"
+            );
+
+          message.textContent = "";
+
+
+          if (value === "") {
+
+            message.textContent =
+              "氏名を入力して下さい。";
+
+            editNameInput.focus();
+
+            return;
+
+          }
+
+
+          setText(
+            "name",
+            value
+          );
+
+          document
+            .getElementById("nameEditor")
+            .classList.remove("is-open");
+
+        }
+      );
+
+
+    document
+      .getElementById("savePhoneHomeButton")
+      .addEventListener(
+        "click",
+        function () {
+
+          const value =
+            editPhoneHomeInput.value.trim();
+
+          const message =
+            document.getElementById(
+              "editPhoneHomeMessage"
+            );
+
+          message.textContent = "";
+
+
+          if (!checkPhoneNumber(value)) {
+
+            message.textContent =
+              "自宅番号は半角数字と2個のハイフンで入力して下さい。例：0748-12-3456";
+
+            editPhoneHomeInput.focus();
+
+            return;
+
+          }
+
+
+          setText(
+            "phoneHome",
+            value
+          );
+
+          document
+            .getElementById(
+              "phoneHomeEditor"
+            )
+            .classList.remove("is-open");
+
+        }
+      );
+
+
+    document
+      .getElementById(
+        "savePhoneMobileButton"
+      )
+      .addEventListener(
+        "click",
+        function () {
+
+          const value =
+            editPhoneMobileInput.value.trim();
+
+          const message =
+            document.getElementById(
+              "editPhoneMobileMessage"
+            );
+
+          message.textContent = "";
+
+
+          if (!checkPhoneNumber(value)) {
+
+            message.textContent =
+              "携帯番号は半角数字と2個のハイフンで入力して下さい。例：090-1234-5678";
+
+            editPhoneMobileInput.focus();
+
+            return;
+
+          }
+
+
+          setText(
+            "phoneMobile",
+            value
+          );
+
+          document
+            .getElementById(
+              "phoneMobileEditor"
+            )
+            .classList.remove("is-open");
+
+        }
+      );
+
+
+    document
+      .getElementById("saveAddressButton")
+      .addEventListener(
+        "click",
+        function () {
+
+          const postalCode =
+            editPostalCodeInput.value.trim();
+
+          const address1 =
+            editAddress1Input.value.trim();
+
+          const address2 =
+            editAddress2Input.value.trim();
+
+          const address3 =
+            editAddress3Input.value.trim();
+
+          const addressManual =
+            editAddressManualInput.value.trim();
+
+          const message =
+            document.getElementById(
+              "editAddressMessage"
+            );
+
+          message.textContent = "";
+
+
+          if (
+            !/^\d{3}-\d{4}$/.test(
+              postalCode
+            )
+          ) {
+
+            message.textContent =
+              "郵便番号を例の形式で入力して下さい。例：523-0892";
+
+            editPostalCodeInput.focus();
+
+            return;
+
+          }
+
+
+          if (addressManual === "") {
+
+            message.textContent =
+              "丁目・番地・マンション・アパートを入力して下さい。";
+
+            editAddressManualInput.focus();
+
+            return;
+
+          }
+
+
+          setText(
+            "postalCode",
+            postalCode
+          );
+
+          setText(
+            "address1",
+            address1
+          );
+
+          setText(
+            "address2",
+            address2
+          );
+
+          setText(
+            "address3",
+            address3
+          );
+
+          setText(
+            "addressManual",
+            addressManual
+          );
+
+          document
+            .getElementById("addressEditor")
+            .classList.remove("is-open");
+
+        }
+      );
+
+
+    document
+      .getElementById("saveCarNameButton")
+      .addEventListener(
+        "click",
+        function () {
+
+          const value =
+            editCarNameInput.value.trim();
+
+          const message =
+            document.getElementById(
+              "editCarNameMessage"
+            );
+
+          message.textContent = "";
+
+
+          if (value === "") {
+
+            message.textContent =
+              "車名を入力して下さい。";
+
+            editCarNameInput.focus();
+
+            return;
+
+          }
+
+
+          setText(
+            "carName",
+            value
+          );
+
+          document
+            .getElementById("carNameEditor")
+            .classList.remove("is-open");
+
+        }
+      );
+
+
+    document
+      .getElementById(
+        "saveRegistrationNumberButton"
+      )
+      .addEventListener(
+        "click",
+        function () {
+
+          const value =
+            editRegistrationNumberInput
+              .value
+              .trim();
+
+          const message =
+            document.getElementById(
+              "editRegistrationNumberMessage"
+            );
+
+          message.textContent = "";
+
+
+          if (value === "") {
+
+            message.textContent =
+              "登録番号を入力して下さい。";
+
+            editRegistrationNumberInput.focus();
+
+            return;
+
+          }
+
+
+          setText(
+            "registrationNumber",
+            value
+          );
+
+          document
+            .getElementById(
+              "registrationNumberEditor"
+            )
+            .classList.remove("is-open");
+
+        }
+      );
+
+
+    document
+      .getElementById(
+        "confirmCustomerInformationButton"
+      )
+      .addEventListener(
+        "click",
+        function () {
+
+          closeAllEditors();
+
+          document
+            .getElementById(
+              "confirmCustomerInformationMessage"
+            )
+            .textContent =
+            "確認が完了しました。";
+
+        }
+      );
+    
     loadCustomer();
+  
   </script>
 
 </body>
