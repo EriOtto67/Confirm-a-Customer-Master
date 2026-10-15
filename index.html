@@ -1998,61 +1998,162 @@ setText(
 
 
     document
-      .getElementById("saveFuriganaButton")
-      .addEventListener(
-        "click",
-        function () {
+  .getElementById("saveFuriganaButton")
+  .addEventListener(
+    "click",
+    async function () {
 
-          const value =
-            editFuriganaInput.value.trim();
+      const value =
+        editFuriganaInput.value.trim();
 
-          const message =
-            document.getElementById(
-              "editFuriganaMessage"
-            );
+      const message =
+        document.getElementById(
+          "editFuriganaMessage"
+        );
 
-          message.textContent = "";
+      const saveButton =
+        document.getElementById(
+          "saveFuriganaButton"
+        );
 
-
-          if (value === "") {
-
-            message.textContent =
-              "フリガナを入力して下さい。";
-
-            editFuriganaInput.focus();
-
-            return;
-
-          }
+      message.textContent = "";
 
 
-          if (
-            !/^[ァ-ヶーＡ-Ｚａ-ｚ０-９　]+$/.test(
-              value
-            )
-          ) {
+      if (value === "") {
 
-            message.textContent =
-              "全角カタカナまたは全角英数字で入力して下さい。";
+        message.textContent =
+          "フリガナを入力して下さい。";
 
-            editFuriganaInput.focus();
+        editFuriganaInput.focus();
 
-            return;
+        return;
 
-          }
+      }
 
 
-          setText(
-            "furigana",
-            value
+      if (
+        !/^[ァ-ヶーＡ-Ｚａ-ｚ０-９　]+$/.test(
+          value
+        )
+      ) {
+
+        message.textContent =
+          "全角カタカナまたは全角英数字で入力して下さい。";
+
+        editFuriganaInput.focus();
+
+        return;
+
+      }
+
+
+      try {
+
+        saveButton.disabled = true;
+
+        saveButton.textContent =
+          "保存中...";
+
+
+        const response =
+          await fetch(
+            UPDATE_FLOW_URL,
+            {
+
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body: JSON.stringify({
+                vehicleId: vehicleId,
+                field: "furigana",
+                value: value
+              })
+
+            }
           );
 
-          document
-            .getElementById("furiganaEditor")
-            .classList.remove("is-open");
+
+        const responseText =
+          await response.text();
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            "更新に失敗しました。HTTPステータス：" +
+            response.status
+          );
 
         }
-      );
+
+
+        let data;
+
+
+        try {
+
+          data =
+            JSON.parse(
+              responseText
+            );
+
+        } catch (error) {
+
+          throw new Error(
+            "Power Automateから正常なJSON応答が返されませんでした。"
+          );
+
+        }
+
+
+        if (data.success !== true) {
+
+          throw new Error(
+            "顧客マスタの更新に失敗しました。"
+          );
+
+        }
+
+
+        setText(
+          "furigana",
+          value
+        );
+
+
+        document
+          .getElementById(
+            "furiganaEditor"
+          )
+          .classList.remove(
+            "is-open"
+          );
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        message.textContent =
+          error && error.message
+            ? error.message
+            : "顧客マスタの更新に失敗しました。";
+
+      } finally {
+
+        saveButton.disabled = false;
+
+        saveButton.textContent =
+          "保存";
+
+      }
+
+    }
+  );
 
 
     document
