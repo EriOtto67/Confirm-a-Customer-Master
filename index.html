@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>顧客情報</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #f5f5f5;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        "Hiragino Kaku Gothic ProN",
+        "Yu Gothic",
+        Meiryo,
+        sans-serif;
+      color: #333;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      margin: 0 0 20px 0;
+      font-size: 24px;
+    }
+
+    .row {
+      padding: 14px 0;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .row:last-child {
+      border-bottom: none;
+    }
+
+    .label {
+      margin-bottom: 5px;
+      font-size: 13px;
+      color: #777;
+    }
+
+    .value {
+      min-height: 24px;
+      font-size: 18px;
+      font-weight: 600;
+      word-break: break-word;
+    }
+
+    #loading {
+      padding: 30px;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    #error {
+      display: none;
+      margin-bottom: 16px;
+      padding: 16px;
+      color: #b71c1c;
+      background: #ffebee;
+      border-radius: 8px;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    #customerInfo {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div id="loading">
+      顧客情報を読み込んでいます...
+    </div>
+
+    <div id="error"></div>
+
+    <div id="customerInfo" class="card">
+
+      <h1>顧客情報</h1>
+
+      <div class="row">
+        <div class="label">車両ID</div>
+        <div class="value" id="vehicleId"></div>
+      </div>
+
+      <div class="row">
+        <div class="label">フリガナ</div>
+        <div class="value" id="furigana"></div>
+      </div>
+
+      <div class="row">
+        <div class="label">氏名</div>
+        <div class="value" id="name"></div>
+      </div>
+
+      <div class="row">
+        <div class="label">自宅番号</div>
+        <div class="value" id="phoneHome"></div>
+      </div>
+
+      <div class="row">
+        <div class="label">携帯番号</div>
+        <div class="value" id="phoneMobile"></div>
+      </div>
+
+      <div class="row">
+        <div class="label">郵便番号</div>
+        <div class="value" id="postalCode"></div>
+      </div>
+
+      <div class="row">
+        <div class="label">住所1</div>
+        <div class="value" id="address1"></div>
+      </div>
+
+      <div class="row">
+        <div class="label">住所2</div>
+        <div class="value" id="address2"></div>
+      </div>
+
+      <div class="row">
+        <div class="label">住所3</div>
+        <div class="value" id="address3"></div>
+      </div>
+
+      <div class="row">
+        <div class="label">住所（手入力）</div>
+        <div class="value" id="addressManual"></div>
+      </div>
+
+      <div class="row">
+        <div class="label">車名</div>
+        <div class="value" id="carName"></div>
+      </div>
+
+      <div class="row">
+        <div class="label">登録番号</div>
+        <div class="value" id="registrationNumber"></div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <script>
+    const FLOW_URL = "https://default1a2cf14ad33440fe9e6c8e9728b84d.0d.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/31/workflows/d16e39d6d0ff4faabbe0a9bf1ce2417b/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=oGGn3CgyfgKqxlSJIQu8y3GLl-AEn7PvQ3Jcuiistrg";
+
+    const vehicleId = "8832";
+
+
+    function setText(id, value) {
+      document.getElementById(id).textContent =
+        value === null || value === undefined || value === ""
+          ? "－"
+          : String(value);
+    }
+
+
+    function showError(message) {
+      document.getElementById("loading").style.display = "none";
+      document.getElementById("customerInfo").style.display = "none";
+
+      const errorElement = document.getElementById("error");
+
+      errorElement.textContent = message;
+      errorElement.style.display = "block";
+    }
+
+
+    async function loadCustomer() {
+
+      try {
+
+        if (
+          !FLOW_URL ||
+          FLOW_URL === "ここにPowerAutomateのHTTP POST URLを入れる" ||
+          FLOW_URL === "ここにPower AutomateのHTTP POST URLを入れる"
+        ) {
+          throw new Error(
+            "FLOW_URLにPower AutomateのHTTP POST URLが設定されていません。"
+          );
+        }
+
+
+        console.log("送信する車両ID:", vehicleId);
+
+
+        const response = await fetch(FLOW_URL, {
+
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json"
+          },
+
+          body: JSON.stringify({
+            vehicleId: vehicleId
+          })
+
+        });
+
+
+        const responseText = await response.text();
+
+
+        console.log("HTTPステータス:", response.status);
+        console.log("Power Automate応答:", responseText);
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            "Power Automate通信エラー\n" +
+            "HTTPステータス: " +
+            response.status +
+            "\n\n" +
+            responseText
+          );
+
+        }
+
+
+        let data;
+
+
+        try {
+
+          data = JSON.parse(responseText);
+
+        } catch (e) {
+
+          throw new Error(
+            "Power Automateから返されたデータがJSONではありません。\n\n" +
+            responseText
+          );
+
+        }
+
+
+        console.log("JSON変換後:", data);
+
+
+        if (data.success !== true) {
+
+          throw new Error(
+            "Power Automateから正常応答が返っていません。\n\n" +
+            JSON.stringify(data, null, 2)
+          );
+
+        }
+
+
+        if (!data.customer) {
+
+          throw new Error(
+            "応答データにcustomerがありません。\n\n" +
+            JSON.stringify(data, null, 2)
+          );
+
+        }
+
+
+        const customer = data.customer;
+
+
+        setText(
+          "vehicleId",
+          customer.vehicleId
+        );
+
+        setText(
+          "furigana",
+          customer.furigana
+        );
+
+        setText(
+          "name",
+          customer.name
+        );
+
+        setText(
+          "phoneHome",
+          customer.phoneHome
+        );
+
+        setText(
+          "phoneMobile",
+          customer.phoneMobile
+        );
+
+        setText(
+          "postalCode",
+          customer.postalCode
+        );
+
+        setText(
+          "address1",
+          customer.address1
+        );
+
+        setText(
+          "address2",
+          customer.address2
+        );
+
+        setText(
+          "address3",
+          customer.address3
+        );
+
+        setText(
+          "addressManual",
+          customer.addressManual
+        );
+
+        setText(
+          "carName",
+          customer.carName
+        );
+
+        setText(
+          "registrationNumber",
+          customer.registrationNumber
+        );
+
+
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("error").style.display = "none";
+        document.getElementById("customerInfo").style.display = "block";
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        showError(
+          error && error.message
+            ? error.message
+            : String(error)
+        );
+
+      }
+
+    }
+
+
+    loadCustomer();
+  </script>
+
+</body>
+</html>
