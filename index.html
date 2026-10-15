@@ -2328,93 +2328,291 @@ setText(
 
 
     document
-      .getElementById("savePhoneHomeButton")
-      .addEventListener(
-        "click",
-        function () {
+  .getElementById("savePhoneHomeButton")
+  .addEventListener(
+    "click",
+    async function () {
 
-          const value =
-            editPhoneHomeInput.value.trim();
+      const value =
+        editPhoneHomeInput.value.trim();
 
-          const message =
-            document.getElementById(
-              "editPhoneHomeMessage"
-            );
+      const message =
+        document.getElementById(
+          "editPhoneHomeMessage"
+        );
 
-          message.textContent = "";
+      const saveButton =
+        document.getElementById(
+          "savePhoneHomeButton"
+        );
 
-
-          if (!checkPhoneNumber(value)) {
-
-            message.textContent =
-              "自宅番号は半角数字と2個のハイフンで入力して下さい。例：0748-12-3456";
-
-            editPhoneHomeInput.focus();
-
-            return;
-
-          }
+      message.textContent = "";
 
 
-          setText(
-            "phoneHome",
-            value
+      if (!checkPhoneNumber(value)) {
+
+        message.textContent =
+          "自宅番号は半角数字と2個のハイフンで入力して下さい。例：0748-12-3456";
+
+        editPhoneHomeInput.focus();
+
+        return;
+
+      }
+
+
+      try {
+
+        saveButton.disabled = true;
+
+        saveButton.textContent =
+          "保存中...";
+
+
+        const response =
+          await fetch(
+            UPDATE_FLOW_URL,
+            {
+
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body: JSON.stringify({
+                vehicleId: vehicleId,
+                field: "phoneHome",
+                value: value
+              })
+
+            }
           );
 
-          document
-            .getElementById(
-              "phoneHomeEditor"
-            )
-            .classList.remove("is-open");
+
+        const responseText =
+          await response.text();
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            "更新に失敗しました。HTTPステータス：" +
+            response.status
+          );
 
         }
-      );
+
+
+        let data;
+
+
+        try {
+
+          data =
+            JSON.parse(
+              responseText
+            );
+
+        } catch (error) {
+
+          throw new Error(
+            "Power Automateから正常なJSON応答が返されませんでした。"
+          );
+
+        }
+
+
+        if (data.success !== true) {
+
+          throw new Error(
+            "顧客マスタの更新に失敗しました。"
+          );
+
+        }
+
+
+        setText(
+          "phoneHome",
+          value
+        );
+
+
+        document
+          .getElementById(
+            "phoneHomeEditor"
+          )
+          .classList.remove(
+            "is-open"
+          );
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        message.textContent =
+          error && error.message
+            ? error.message
+            : "顧客マスタの更新に失敗しました。";
+
+      } finally {
+
+        saveButton.disabled = false;
+
+        saveButton.textContent =
+          "保存";
+
+      }
+
+    }
+  );
 
 
     document
-      .getElementById(
-        "savePhoneMobileButton"
-      )
-      .addEventListener(
-        "click",
-        function () {
+  .getElementById(
+    "savePhoneMobileButton"
+  )
+  .addEventListener(
+    "click",
+    async function () {
 
-          const value =
-            editPhoneMobileInput.value.trim();
+      const value =
+        editPhoneMobileInput.value.trim();
 
-          const message =
-            document.getElementById(
-              "editPhoneMobileMessage"
-            );
+      const message =
+        document.getElementById(
+          "editPhoneMobileMessage"
+        );
 
-          message.textContent = "";
+      const saveButton =
+        document.getElementById(
+          "savePhoneMobileButton"
+        );
 
-
-          if (!checkPhoneNumber(value)) {
-
-            message.textContent =
-              "携帯番号は半角数字と2個のハイフンで入力して下さい。例：090-1234-5678";
-
-            editPhoneMobileInput.focus();
-
-            return;
-
-          }
+      message.textContent = "";
 
 
-          setText(
-            "phoneMobile",
-            value
+      if (!checkPhoneNumber(value)) {
+
+        message.textContent =
+          "携帯番号は半角数字と2個のハイフンで入力して下さい。例：090-1234-5678";
+
+        editPhoneMobileInput.focus();
+
+        return;
+
+      }
+
+
+      try {
+
+        saveButton.disabled = true;
+
+        saveButton.textContent =
+          "保存中...";
+
+
+        const response =
+          await fetch(
+            UPDATE_FLOW_URL,
+            {
+
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body: JSON.stringify({
+                vehicleId: vehicleId,
+                field: "phoneMobile",
+                value: value
+              })
+
+            }
           );
 
-          document
-            .getElementById(
-              "phoneMobileEditor"
-            )
-            .classList.remove("is-open");
+
+        const responseText =
+          await response.text();
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            "更新に失敗しました。HTTPステータス：" +
+            response.status
+          );
 
         }
-      );
+
+
+        let data;
+
+
+        try {
+
+          data =
+            JSON.parse(
+              responseText
+            );
+
+        } catch (error) {
+
+          throw new Error(
+            "Power Automateから正常なJSON応答が返されませんでした。"
+          );
+
+        }
+
+
+        if (data.success !== true) {
+
+          throw new Error(
+            "顧客マスタの更新に失敗しました。"
+          );
+
+        }
+
+
+        setText(
+          "phoneMobile",
+          value
+        );
+
+
+        document
+          .getElementById(
+            "phoneMobileEditor"
+          )
+          .classList.remove(
+            "is-open"
+          );
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        message.textContent =
+          error && error.message
+            ? error.message
+            : "顧客マスタの更新に失敗しました。";
+
+      } finally {
+
+        saveButton.disabled = false;
+
+        saveButton.textContent =
+          "保存";
+
+      }
+
+    }
+  );
 
 
        // ========================================
