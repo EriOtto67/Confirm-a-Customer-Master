@@ -7,86 +7,172 @@
   <title>顧客情報</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+  * {
+    box-sizing: border-box;
+  }
 
+  body {
+    margin: 0;
+    padding: 24px 16px;
+    background: #f1f6f3;
+    font-family:
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      "Hiragino Kaku Gothic ProN",
+      "Yu Gothic",
+      Meiryo,
+      sans-serif;
+    color: #26332c;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  /* ページ上部 */
+  .page-header {
+    margin-bottom: 22px;
+    padding: 0 4px;
+  }
+
+  .page-title {
+    margin: 0;
+    color: #1f6d46;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  .page-subtitle {
+    margin-top: 6px;
+    color: #789084;
+    font-size: 13px;
+  }
+
+  .vehicle-id {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 6px 12px;
+    background: #e3f2e9;
+    color: #1f6d46;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  /* カード */
+  .info-card {
+    margin-bottom: 18px;
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid #dce9e1;
+    border-radius: 14px;
+    box-shadow: 0 3px 12px rgba(31, 109, 70, 0.06);
+  }
+
+  .card-header {
+    padding: 13px 18px;
+    background: #287a50;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  .card-body {
+    padding: 5px 20px;
+  }
+
+  /* 各項目 */
+  .row {
+    padding: 15px 0;
+    border-bottom: 1px solid #edf2ef;
+  }
+
+  .row:last-child {
+    border-bottom: none;
+  }
+
+  .label {
+    margin-bottom: 5px;
+    color: #718077;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .value {
+    min-height: 25px;
+    color: #26332c;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.5;
+    word-break: break-word;
+  }
+
+  /* 氏名は少し強調 */
+  .name-value {
+    color: #174d33;
+    font-size: 22px;
+  }
+
+  /* 住所 */
+  .address-value {
+    line-height: 1.8;
+  }
+
+  /* 読み込み中 */
+  #loading {
+    margin-top: 40px;
+    padding: 30px;
+    color: #1f6d46;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  /* エラー */
+  #error {
+    display: none;
+    margin-bottom: 16px;
+    padding: 18px;
+    color: #a82323;
+    background: #fff1f1;
+    border: 1px solid #efcccc;
+    border-radius: 12px;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  #customerInfo {
+    display: none;
+  }
+
+  /* タブレット */
+  @media (max-width: 600px) {
     body {
-      margin: 0;
-      padding: 20px;
-      background: #f5f5f5;
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        "Hiragino Kaku Gothic ProN",
-        "Yu Gothic",
-        Meiryo,
-        sans-serif;
-      color: #333;
+      padding: 16px 12px;
     }
 
-    .container {
-      width: 100%;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-
-    .card {
-      background: #ffffff;
-      border-radius: 12px;
-      padding: 24px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    }
-
-    h1 {
-      margin: 0 0 20px 0;
+    .page-title {
       font-size: 24px;
     }
 
-    .row {
-      padding: 14px 0;
-      border-bottom: 1px solid #e5e5e5;
-    }
-
-    .row:last-child {
-      border-bottom: none;
-    }
-
-    .label {
-      margin-bottom: 5px;
-      font-size: 13px;
-      color: #777;
+    .card-body {
+      padding: 4px 16px;
     }
 
     .value {
-      min-height: 24px;
-      font-size: 18px;
-      font-weight: 600;
-      word-break: break-word;
+      font-size: 17px;
     }
 
-    #loading {
-      padding: 30px;
-      text-align: center;
-      font-size: 16px;
+    .name-value {
+      font-size: 21px;
     }
-
-    #error {
-      display: none;
-      margin-bottom: 16px;
-      padding: 16px;
-      color: #b71c1c;
-      background: #ffebee;
-      border-radius: 8px;
-      white-space: pre-wrap;
-      word-break: break-word;
-    }
-
-    #customerInfo {
-      display: none;
-    }
-  </style>
+  }
+</style>
 </head>
 
 <body>
@@ -99,14 +185,33 @@
 
     <div id="error"></div>
 
-    <div id="customerInfo" class="card">
+    <div id="customerInfo">
 
-      <h1>顧客情報</h1>
+  <div class="page-header">
 
-      <div class="row">
-        <div class="label">車両ID</div>
-        <div class="value" id="vehicleId"></div>
-      </div>
+    <h1 class="page-title">
+      お客様情報
+    </h1>
+
+    <div class="page-subtitle">
+      CUSTOMER INFORMATION
+    </div>
+
+    <div class="vehicle-id">
+      車両ID：<span id="vehicleId"></span>
+    </div>
+
+  </div>
+
+
+  <!-- お客様 -->
+  <div class="info-card">
+
+    <div class="card-header">
+      お客様
+    </div>
+
+    <div class="card-body">
 
       <div class="row">
         <div class="label">フリガナ</div>
@@ -115,8 +220,22 @@
 
       <div class="row">
         <div class="label">氏名</div>
-        <div class="value" id="name"></div>
+        <div class="value name-value" id="name"></div>
       </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ご連絡先 -->
+  <div class="info-card">
+
+    <div class="card-header">
+      ご連絡先
+    </div>
+
+    <div class="card-body">
 
       <div class="row">
         <div class="label">自宅番号</div>
@@ -128,30 +247,50 @@
         <div class="value" id="phoneMobile"></div>
       </div>
 
+    </div>
+
+  </div>
+
+
+  <!-- ご住所 -->
+  <div class="info-card">
+
+    <div class="card-header">
+      ご住所
+    </div>
+
+    <div class="card-body">
+
       <div class="row">
         <div class="label">郵便番号</div>
         <div class="value" id="postalCode"></div>
       </div>
 
       <div class="row">
-        <div class="label">住所1</div>
-        <div class="value" id="address1"></div>
+        <div class="label">住所</div>
+
+        <div class="value address-value">
+          <div id="address1"></div>
+          <div id="address2"></div>
+          <div id="address3"></div>
+          <div id="addressManual"></div>
+        </div>
+
       </div>
 
-      <div class="row">
-        <div class="label">住所2</div>
-        <div class="value" id="address2"></div>
-      </div>
+    </div>
 
-      <div class="row">
-        <div class="label">住所3</div>
-        <div class="value" id="address3"></div>
-      </div>
+  </div>
 
-      <div class="row">
-        <div class="label">住所（手入力）</div>
-        <div class="value" id="addressManual"></div>
-      </div>
+
+  <!-- お車 -->
+  <div class="info-card">
+
+    <div class="card-header">
+      お車
+    </div>
+
+    <div class="card-body">
 
       <div class="row">
         <div class="label">車名</div>
@@ -164,6 +303,10 @@
       </div>
 
     </div>
+
+  </div>
+
+</div>
 
   </div>
 
