@@ -487,6 +487,102 @@
     border-color: #d5d5d5;
     box-shadow: none;
   }
+
+      /* ====================================== */
+  /* スタッフモード切替画面 */
+  /* ====================================== */
+
+  #staffModeScreen {
+    display: none;
+  }
+
+  .staff-mode-card {
+    text-align: center;
+  }
+
+  .handover-message {
+    margin: 0 0 28px;
+    padding: 18px;
+    background-color: #f0f8f3;
+    border-left: 4px solid #00b84f;
+    border-radius: 6px;
+    color: #444444;
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+  .handover-message strong {
+    display: block;
+    margin-bottom: 8px;
+    color: #00883b;
+    font-size: 18px;
+  }
+
+  .staff-mode-area {
+    padding-top: 24px;
+    border-top: 1px solid #dddddd;
+  }
+
+  .staff-mode-title {
+    margin: 0 0 20px;
+    color: #444444;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .staff-mode-description {
+    margin: 0 0 20px;
+    color: #666666;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .staff-code-input {
+    width: 100%;
+    height: 50px;
+    padding: 10px 12px;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+    color: #333333;
+    font-size: 18px;
+    text-align: center;
+    outline: none;
+  }
+
+  .staff-code-input:focus {
+    border-color: #00c853;
+    box-shadow: 0 0 0 2px rgba(0, 200, 83, 0.12);
+  }
+
+  .staff-mode-button {
+    width: 100%;
+    height: 50px;
+    margin-top: 18px;
+    border: none;
+    border-radius: 6px;
+    background-color: #00b84f;
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .staff-mode-button:hover {
+    background-color: #009f45;
+  }
+
+  .staff-mode-button:active {
+    background-color: #00883b;
+  }
+
+  .staff-mode-message {
+    min-height: 22px;
+    margin-top: 12px;
+    color: #d93025;
+    font-size: 14px;
+    font-weight: 600;
+  }
     
 </style>
   
@@ -1216,11 +1312,14 @@
   </div>
 
 
-  <!-- ====================================== -->
+    <!-- ====================================== -->
   <!-- 確認完了 -->
   <!-- ====================================== -->
 
-  <div class="info-card confirmation-card">
+    <div
+    id="confirmationCard"
+    class="info-card confirmation-card"
+  >
 
     <div class="card-header">
       登録内容の確認
@@ -1248,13 +1347,97 @@
 
 </div>
 
+
+<!-- ====================================== -->
+<!-- スタッフモード切替画面 -->
+<!-- ====================================== -->
+
+<div id="staffModeScreen">
+
+  <div class="page-header">
+
+    <h1 class="page-title">
+      ご確認ありがとうございました
+    </h1>
+
+    <div class="page-subtitle">
+      CUSTOMER INFORMATION
+    </div>
+
+  </div>
+
+
+  <div class="info-card staff-mode-card">
+
+    <div class="handover-message">
+
+      <strong>
+        ご確認ありがとうございました。
+      </strong>
+
+      タブレットをスタッフまでお渡し下さい。
+
+    </div>
+
+
+    <div class="staff-mode-area">
+
+      <div class="staff-mode-title">
+        スタッフモード
+      </div>
+
+      <p class="staff-mode-description">
+        ここから先はスタッフが操作します。
+      </p>
+
+
+      <input
+        type="password"
+        id="staffCode"
+        class="staff-code-input"
+        inputmode="numeric"
+        pattern="[0-9]*"
+        autocomplete="off"
+        placeholder="スタッフコードを入力"
+      >
+
+
+      <button
+        type="button"
+        id="staffModeButton"
+        class="staff-mode-button"
+      >
+        スタッフモードへ
+      </button>
+
+
+      <div
+        id="staffModeMessage"
+        class="staff-mode-message"
+      ></div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
   </div>
 
 
   <script>
+    
     const FLOW_URL = "https://default1a2cf14ad33440fe9e6c8e9728b84d.0d.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/31/workflows/d16e39d6d0ff4faabbe0a9bf1ce2417b/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=oGGn3CgyfgKqxlSJIQu8y3GLl-AEn7PvQ3Jcuiistrg";
 
     const UPDATE_FLOW_URL = "https://default1a2cf14ad33440fe9e6c8e9728b84d.0d.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/13/workflows/a747748dded248189952adfed727f2cc/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=4EDNWtR2d4YOWYqKZgozPTlgADce3_4h36oX-l2oSZk";
+
+        // ========================================
+    // スタッフコード
+    // ========================================
+
+    const CORRECT_STAFF_CODE =
+      "ogakame1234";
     
     // ========================================
     // URLから車両IDを取得
@@ -3194,7 +3377,7 @@ document
 
 
 
-    document
+        document
       .getElementById(
         "confirmCustomerInformationButton"
       )
@@ -3204,19 +3387,217 @@ document
 
           closeAllEditors();
 
+
           document
             .getElementById(
-              "confirmCustomerInformationMessage"
+              "customerInfo"
             )
-            .textContent =
-            "確認が完了しました。";
+            .style.display =
+            "none";
+
+
+          document
+            .getElementById(
+              "staffModeScreen"
+            )
+            .style.display =
+            "block";
+
+
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+          });
+
+
+          setTimeout(
+            function () {
+
+              document
+                .getElementById(
+                  "staffCode"
+                )
+                .focus();
+
+            },
+            300
+          );
 
         }
       );
     
+    // ========================================
+    // スタッフコード入力
+    // 半角数字のみ
+    // ========================================
+
+    const staffCodeInput =
+      document.getElementById(
+        "staffCode"
+      );
+
+    const staffModeButton =
+      document.getElementById(
+        "staffModeButton"
+      );
+
+    const staffModeMessage =
+      document.getElementById(
+        "staffModeMessage"
+      );
+
+
+    staffCodeInput.addEventListener(
+      "input",
+      function () {
+
+        this.value =
+          this.value.replace(
+            /[^0-9]/g,
+            ""
+          );
+
+        staffModeMessage.textContent =
+          "";
+
+      }
+    );
+
+
+        // ========================================
+    // スタッフモードへ
+    // ========================================
+
+    staffModeButton.addEventListener(
+      "click",
+      function () {
+
+        const staffCode =
+          staffCodeInput.value.trim();
+
+
+        staffModeMessage.textContent =
+          "";
+
+
+        // ========================================
+        // 未入力確認
+        // ========================================
+
+        if (staffCode === "") {
+
+          staffModeMessage.textContent =
+            "スタッフコードを入力して下さい。";
+
+          staffCodeInput.focus();
+
+          return;
+
+        }
+
+
+        // ========================================
+        // スタッフコード確認
+        // ========================================
+
+        if (
+          staffCode !==
+          CORRECT_STAFF_CODE
+        ) {
+
+          staffModeMessage.textContent =
+            "スタッフコードが正しくありません。";
+
+          staffCodeInput.value =
+            "";
+
+          staffCodeInput.focus();
+
+          return;
+
+        }
+
+
+        // ========================================
+        // スタッフモード切替画面を非表示
+        // ========================================
+
+        document
+          .getElementById(
+            "staffModeScreen"
+          )
+          .style.display =
+          "none";
+
+
+        // ========================================
+        // 顧客情報画面をスタッフ用として再表示
+        // ========================================
+
+        document
+          .getElementById(
+            "customerInfo"
+          )
+          .style.display =
+          "block";
+
+
+        // ========================================
+        // お客様向け確認完了カードを非表示
+        // ========================================
+
+        document
+          .getElementById(
+            "confirmationCard"
+          )
+          .style.display =
+          "none";
+
+
+        // ========================================
+        // スタッフコードを消去
+        // ========================================
+
+        staffCodeInput.value =
+          "";
+
+
+        // ========================================
+        // 画面上部へ移動
+        // ========================================
+
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+
+      }
+    );
+
+
+    // ========================================
+    // Enterキーでも実行
+    // ========================================
+
+    staffCodeInput.addEventListener(
+      "keydown",
+      function (event) {
+
+        if (event.key === "Enter") {
+
+          event.preventDefault();
+
+          staffModeButton.click();
+
+        }
+
+      }
+    );
+
+
     loadCustomer();
   
   </script>
-
+  
 </body>
 </html>
