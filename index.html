@@ -2615,132 +2615,271 @@ setText(
   );
 
 
-       // ========================================
-    // 住所を保存
     // ========================================
+// 郵便番号・住所を保存
+// ========================================
 
-    document
-      .getElementById("saveAddressButton")
-      .addEventListener(
-        "click",
-        function () {
+document
+  .getElementById("saveAddressButton")
+  .addEventListener(
+    "click",
+    async function () {
 
-          const postalCode =
-            editPostalCodeInput
-              .value
-              .trim();
+      const postalCode =
+        editPostalCodeInput
+          .value
+          .trim();
 
-          const address1 =
-            editAddress1Input
-              .value
-              .trim();
+      const address1 =
+        editAddress1Input
+          .value
+          .trim();
 
-          const address2 =
-            editAddress2Input
-              .value
-              .trim();
+      const address2 =
+        editAddress2Input
+          .value
+          .trim();
 
-          const address3 =
-            editAddress3Input
-              .value
-              .trim();
+      const address3 =
+        editAddress3Input
+          .value
+          .trim();
 
-          const addressManual =
-            editAddressManualInput
-              .value
-              .trim();
+      const addressManual =
+        editAddressManualInput
+          .value
+          .trim();
 
-          const message =
-            document.getElementById(
-              "editAddressMessage"
-            );
+      const message =
+        document.getElementById(
+          "editAddressMessage"
+        );
 
-          message.textContent = "";
+      const saveButton =
+        document.getElementById(
+          "saveAddressButton"
+        );
 
-
-          if (
-            !/^\d{3}-\d{4}$/.test(
-              postalCode
-            )
-          ) {
-
-            message.textContent =
-              "郵便番号を例の形式で入力して下さい。例：523-0892";
-
-            editPostalCodeInput.focus();
-
-            return;
-
-          }
+      message.textContent = "";
 
 
-          if (
-            address1 === "" ||
-            address2 === ""
-          ) {
+      // ========================================
+      // 郵便番号の形式確認
+      // ========================================
 
-            message.textContent =
-              "郵便番号から住所を取得して下さい。";
+      if (
+        !/^\d{3}-\d{4}$/.test(
+          postalCode
+        )
+      ) {
 
-            editPostalCodeInput.focus();
+        message.textContent =
+          "郵便番号を例の形式で入力して下さい。例：523-0892";
 
-            return;
+        editPostalCodeInput.focus();
 
-          }
+        return;
 
-
-          if (addressManual === "") {
-
-            message.textContent =
-              "住所4（丁目・番地・マンション・アパート）を入力して下さい。";
-
-            editAddressManualInput.focus();
-
-            return;
-
-          }
+      }
 
 
-          setText(
-            "postalCode",
-            postalCode
+      // ========================================
+      // 住所1・住所2の取得確認
+      // ========================================
+
+      if (
+        address1 === "" ||
+        address2 === ""
+      ) {
+
+        message.textContent =
+          "郵便番号から住所を取得して下さい。";
+
+        editPostalCodeInput.focus();
+
+        return;
+
+      }
+
+
+      // ========================================
+      // 住所4の入力確認
+      // ========================================
+
+      if (addressManual === "") {
+
+        message.textContent =
+          "住所4（丁目・番地・マンション・アパート）を入力して下さい。";
+
+        editAddressManualInput.focus();
+
+        return;
+
+      }
+
+
+      try {
+
+        // ========================================
+        // 保存中
+        // ========================================
+
+        saveButton.disabled = true;
+
+        saveButton.textContent =
+          "保存中...";
+
+
+        // ========================================
+        // Power Automateへ住所一式を送信
+        // ========================================
+
+        const response =
+          await fetch(
+            UPDATE_FLOW_URL,
+            {
+
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body: JSON.stringify({
+                vehicleId: vehicleId,
+                field: "address",
+                postalCode: postalCode,
+                address1: address1,
+                address2: address2,
+                address3: address3,
+                addressManual: addressManual
+              })
+
+            }
           );
 
-          setText(
-            "address1",
-            address1
+
+        const responseText =
+          await response.text();
+
+
+        console.log(
+          "住所更新 HTTPステータス:",
+          response.status
+        );
+
+        console.log(
+          "住所更新 Power Automate応答:",
+          responseText
+        );
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            "更新に失敗しました。HTTPステータス：" +
+            response.status
           );
-
-          setText(
-            "address2",
-            address2
-          );
-
-          setText(
-            "address3",
-            address3
-          );
-
-          setText(
-            "addressManual",
-            addressManual
-          );
-
-
-          // 住所1～4をつなげて通常表示を更新
-          updateFullAddress();
-
-
-          document
-            .getElementById(
-              "addressEditor"
-            )
-            .classList.remove(
-              "is-open"
-            );
 
         }
-      );
+
+
+        let data;
+
+
+        try {
+
+          data =
+            JSON.parse(
+              responseText
+            );
+
+        } catch (error) {
+
+          throw new Error(
+            "Power Automateから正常なJSON応答が返されませんでした。"
+          );
+
+        }
+
+
+        if (data.success !== true) {
+
+          throw new Error(
+            "顧客マスタの住所更新に失敗しました。"
+          );
+
+        }
+
+
+        // ========================================
+        // kintone更新成功後に画面を更新
+        // ========================================
+
+        setText(
+          "postalCode",
+          postalCode
+        );
+
+        setText(
+          "address1",
+          address1
+        );
+
+        setText(
+          "address2",
+          address2
+        );
+
+        setText(
+          "address3",
+          address3
+        );
+
+        setText(
+          "addressManual",
+          addressManual
+        );
+
+
+        // 住所1～4をつなげて表示
+        updateFullAddress();
+
+
+        // ========================================
+        // 住所編集欄を閉じる
+        // ========================================
+
+        document
+          .getElementById(
+            "addressEditor"
+          )
+          .classList.remove(
+            "is-open"
+          );
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        message.textContent =
+          error && error.message
+            ? error.message
+            : "顧客マスタの住所更新に失敗しました。";
+
+      } finally {
+
+        saveButton.disabled = false;
+
+        saveButton.textContent =
+          "保存";
+
+      }
+
+    }
+  );
 
     document
       .getElementById("saveCarNameButton")
