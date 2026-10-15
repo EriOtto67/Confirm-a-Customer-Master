@@ -3036,51 +3036,162 @@ document
 
 
     document
-      .getElementById(
-        "saveRegistrationNumberButton"
-      )
-      .addEventListener(
-        "click",
-        function () {
+  .getElementById(
+    "saveRegistrationNumberButton"
+  )
+  .addEventListener(
+    "click",
+    async function () {
 
-          const value =
-            editRegistrationNumberInput
-              .value
-              .trim();
+      const value =
+        editRegistrationNumberInput
+          .value
+          .trim();
 
-          const message =
-            document.getElementById(
-              "editRegistrationNumberMessage"
-            );
+      const message =
+        document.getElementById(
+          "editRegistrationNumberMessage"
+        );
 
-          message.textContent = "";
+      const saveButton =
+        document.getElementById(
+          "saveRegistrationNumberButton"
+        );
 
-
-          if (value === "") {
-
-            message.textContent =
-              "登録番号を入力して下さい。";
-
-            editRegistrationNumberInput.focus();
-
-            return;
-
-          }
+      message.textContent = "";
 
 
-          setText(
-            "registrationNumber",
-            value
+      if (value === "") {
+
+        message.textContent =
+          "登録番号を入力して下さい。";
+
+        editRegistrationNumberInput.focus();
+
+        return;
+
+      }
+
+
+      try {
+
+        saveButton.disabled = true;
+
+        saveButton.textContent =
+          "保存中...";
+
+
+        const response =
+          await fetch(
+            UPDATE_FLOW_URL,
+            {
+
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body: JSON.stringify({
+                vehicleId: vehicleId,
+                field: "registrationNumber",
+                value: value
+              })
+
+            }
           );
 
-          document
-            .getElementById(
-              "registrationNumberEditor"
-            )
-            .classList.remove("is-open");
+
+        const responseText =
+          await response.text();
+
+
+        console.log(
+          "登録番号更新 HTTPステータス:",
+          response.status
+        );
+
+        console.log(
+          "登録番号更新 Power Automate応答:",
+          responseText
+        );
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            "更新に失敗しました。HTTPステータス：" +
+            response.status
+          );
 
         }
-      );
+
+
+        let data;
+
+
+        try {
+
+          data =
+            JSON.parse(
+              responseText
+            );
+
+        } catch (error) {
+
+          throw new Error(
+            "Power Automateから正常なJSON応答が返されませんでした。"
+          );
+
+        }
+
+
+        if (data.success !== true) {
+
+          throw new Error(
+            "顧客マスタの登録番号更新に失敗しました。"
+          );
+
+        }
+
+
+        setText(
+          "registrationNumber",
+          value
+        );
+
+
+        document
+          .getElementById(
+            "registrationNumberEditor"
+          )
+          .classList.remove(
+            "is-open"
+          );
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        message.textContent =
+          error && error.message
+            ? error.message
+            : "顧客マスタの登録番号更新に失敗しました。";
+
+      } finally {
+
+        saveButton.disabled = false;
+
+        saveButton.textContent =
+          "保存";
+
+      }
+
+    }
+  );
+
 
 
     document
