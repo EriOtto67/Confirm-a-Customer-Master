@@ -665,6 +665,45 @@
   }
 
 }
+
+    /* ====================================== */
+/* カレンダー入力 */
+/* ====================================== */
+
+.calendar-input-wrapper {
+  position: relative;
+}
+
+.calendar-input-wrapper input {
+  position: relative;
+  z-index: 2;
+  background-color: transparent;
+  color: transparent;
+}
+
+.calendar-input-wrapper input:focus,
+.calendar-input-wrapper input.has-value {
+  color: #333333;
+}
+
+.calendar-placeholder {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  z-index: 1;
+
+  transform: translateY(-50%);
+
+  color: #888888;
+  font-size: 16px;
+
+  pointer-events: none;
+}
+
+.calendar-input-wrapper input:focus + .calendar-placeholder,
+.calendar-input-wrapper input.has-value + .calendar-placeholder {
+  display: none;
+}
     
 </style>
   
@@ -2225,10 +2264,18 @@
             初度登録年月
           </label>
 
-          <input
-            type="month"
-            id="staffFirstRegistrationDate"
-          >
+          <div class="calendar-input-wrapper">
+
+  <input
+    type="month"
+    id="staffFirstRegistrationDate"
+  >
+
+  <span class="calendar-placeholder">
+    カレンダーから選択
+  </span>
+
+</div>
 
         </div>
 
@@ -2395,10 +2442,18 @@
             車検満了日
           </label>
 
-          <input
-            type="date"
-            id="staffInspectionExpiryDate"
-          >
+          <div class="calendar-input-wrapper">
+
+  <input
+    type="date"
+    id="staffInspectionExpiryDate"
+  >
+
+  <span class="calendar-placeholder">
+    カレンダーから選択
+  </span>
+
+</div>
 
         </div>
 
@@ -5070,6 +5125,64 @@ const staffInspectionExpiryDateInput =
     "staffInspectionExpiryDate"
   );
 
+    // ========================================
+// カレンダー入力 表示制御
+// ========================================
+
+function updateCalendarInputDisplay(
+  input
+) {
+
+  if (input.value) {
+
+    input.classList.add(
+      "has-value"
+    );
+
+  } else {
+
+    input.classList.remove(
+      "has-value"
+    );
+
+  }
+
+}
+
+
+staffFirstRegistrationDateInput
+  .addEventListener(
+    "change",
+    function () {
+
+      updateCalendarInputDisplay(
+        this
+      );
+
+    }
+  );
+
+
+staffInspectionExpiryDateInput
+  .addEventListener(
+    "change",
+    function () {
+
+      updateCalendarInputDisplay(
+        this
+      );
+
+    }
+  );
+
+
+updateCalendarInputDisplay(
+  staffFirstRegistrationDateInput
+);
+
+updateCalendarInputDisplay(
+  staffInspectionExpiryDateInput
+);
 
 // ========================================
 // 半角英数字・記号のみ
