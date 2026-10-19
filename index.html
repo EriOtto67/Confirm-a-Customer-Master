@@ -705,26 +705,26 @@
   display: none;
 }
 
-    /* ====================================== */
+/* ====================================== */
 /* 選択済み日付の西暦・和暦表示 */
 /* ====================================== */
 
 .calendar-selected-date {
-* display: none;
-  margin-top: 9px;*  padding: 10px 12px;
-  background*color: #f0f8f3;
-  border-left: 4px*solid #00b84f;
-  border-radius: 4p*;
+  display: none;
+  margin-top: 9px;
+  padding: 10px 12px;
+  background-color: #f0f8f3;
+  border-left: 4px solid #00b84f;
+  border-radius: 4px;
   color: #333333;
-  font-size: 1*px;
+  font-size: 15px;
   font-weight: 600;
-  line-hei*ht: 1.6;
+  line-height: 1.6;
 }
 
-.calendar-selected-dat*.has-value {
+.calendar-selected-date.has-value {
   display: block;
 }
-`*
     
 </style>
   
@@ -2480,6 +2480,11 @@
   </span>
 
 </div>
+
+<div
+  id="staffInspectionExpiryDateDisplay"
+  class="calendar-selected-date"
+></div>
 
         </div>
 
@@ -5341,6 +5346,85 @@ function updateInspectionExpiryDateDisplay() {
 
   const day =
     Number(
+      parts[2]
+    );
+
+
+  const westernDate =
+    year +
+    "年" +
+    month +
+    "月" +
+    day +
+    "日";
+
+
+  const japaneseDate =
+    formatJapaneseCalendarDate(
+      year,
+      month,
+      day,
+      true
+    );
+
+
+  staffInspectionExpiryDateInput
+    .classList
+    .add(
+      "has-value"
+    );
+
+
+  staffInspectionExpiryDateDisplay
+    .textContent =
+    westernDate +
+    "（" +
+    japaneseDate +
+    "）";
+
+
+  staffInspectionExpiryDateDisplay
+    .classList
+    .add(
+      "has-value"
+    );
+
+}
+
+
+// ========================================
+// カレンダー変更時
+// ========================================
+
+staffFirstRegistrationDateInput
+  .addEventListener(
+    "change",
+    function () {
+
+      updateFirstRegistrationDateDisplay();
+
+    }
+  );
+
+
+staffInspectionExpiryDateInput
+  .addEventListener(
+    "change",
+    function () {
+
+      updateInspectionExpiryDateDisplay();
+
+    }
+  );
+
+
+// ========================================
+// 初期表示
+// ========================================
+
+updateFirstRegistrationDateDisplay();
+
+updateInspectionExpiryDateDisplay();
  
 
 // ========================================
