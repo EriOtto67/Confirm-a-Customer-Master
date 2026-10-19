@@ -583,6 +583,88 @@
     font-size: 14px;
     font-weight: 600;
   }
+
+    /* ====================================== */
+/* スタッフ画面 */
+/* ====================================== */
+
+#staffScreen {
+  display: none;
+}
+
+
+/* ====================================== */
+/* スタッフ用 顧客情報カード */
+/* ====================================== */
+
+.staff-customer-card {
+  padding-top: 0;
+}
+
+
+.staff-customer-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  min-height: 64px;
+
+  margin: 0;
+  padding: 0;
+
+  background-color: transparent;
+  border: none;
+
+  color: #00b84f;
+
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: left;
+
+  cursor: pointer;
+}
+
+
+.staff-customer-toggle-text {
+  margin-left: 20px;
+
+  color: #666666;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  white-space: nowrap;
+}
+
+
+.staff-customer-details {
+  display: block;
+
+  padding-top: 6px;
+
+  border-top: 1px solid #eeeeee;
+}
+
+
+.staff-customer-details.is-closed {
+  display: none;
+}
+
+
+@media (max-width: 600px) {
+
+  .staff-customer-toggle {
+    min-height: 60px;
+    font-size: 20px;
+  }
+
+  .staff-customer-toggle-text {
+    font-size: 12px;
+  }
+
+}
     
 </style>
   
@@ -1423,6 +1505,173 @@
 
 </div>
 
+    <!-- ====================================== -->
+<!-- スタッフ画面 -->
+<!-- ====================================== -->
+
+<div id="staffScreen" style="display: none;">
+
+  <div class="page-header">
+
+    <h1 class="page-title">
+      スタッフモード
+    </h1>
+
+    <div class="page-subtitle">
+      STAFF MODE
+    </div>
+
+  </div>
+
+
+  <!-- ====================================== -->
+  <!-- 顧客情報カード -->
+  <!-- ====================================== -->
+
+  <div class="info-card staff-customer-card">
+
+    <button
+      type="button"
+      id="staffCustomerToggle"
+      class="staff-customer-toggle"
+      aria-expanded="true"
+    >
+
+      <span>
+        顧客情報
+      </span>
+
+      <span
+        id="staffCustomerToggleText"
+        class="staff-customer-toggle-text"
+      >
+        ▲ 閉じる
+      </span>
+
+    </button>
+
+
+    <div
+      id="staffCustomerDetails"
+      class="staff-customer-details"
+    >
+
+      <div class="row">
+
+        <div class="label">
+          フリガナ
+        </div>
+
+        <div
+          class="value"
+          id="staffCustomerFurigana"
+        ></div>
+
+      </div>
+
+
+      <div class="row">
+
+        <div class="label">
+          氏名
+        </div>
+
+        <div
+          class="value name-value"
+          id="staffCustomerName"
+        ></div>
+
+      </div>
+
+
+      <div class="row">
+
+        <div class="label">
+          自宅番号
+        </div>
+
+        <div
+          class="value"
+          id="staffCustomerPhoneHome"
+        ></div>
+
+      </div>
+
+
+      <div class="row">
+
+        <div class="label">
+          携帯番号
+        </div>
+
+        <div
+          class="value"
+          id="staffCustomerPhoneMobile"
+        ></div>
+
+      </div>
+
+
+      <div class="row">
+
+        <div class="label">
+          郵便番号
+        </div>
+
+        <div
+          class="value"
+          id="staffCustomerPostalCode"
+        ></div>
+
+      </div>
+
+
+      <div class="row">
+
+        <div class="label">
+          住所
+        </div>
+
+        <div
+          class="value address-value"
+          id="staffCustomerAddress"
+        ></div>
+
+      </div>
+
+
+      <div class="row">
+
+        <div class="label">
+          車名
+        </div>
+
+        <div
+          class="value"
+          id="staffCustomerCarName"
+        ></div>
+
+      </div>
+
+
+      <div class="row">
+
+        <div class="label">
+          登録番号
+        </div>
+
+        <div
+          class="value"
+          id="staffCustomerRegistrationNumber"
+        ></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
 
   </div>
 
@@ -1739,6 +1988,97 @@ setText(
         "editRegistrationNumber"
       );
 
+    // ========================================
+// スタッフ画面へ顧客情報を反映
+// ========================================
+
+function setStaffCustomerInformation() {
+
+  setText(
+    "staffCustomerFurigana",
+    getDisplayedValue("furigana")
+  );
+
+  setText(
+    "staffCustomerName",
+    getDisplayedValue("name")
+  );
+
+  setText(
+    "staffCustomerPhoneHome",
+    getDisplayedValue("phoneHome")
+  );
+
+  setText(
+    "staffCustomerPhoneMobile",
+    getDisplayedValue("phoneMobile")
+  );
+
+  setText(
+    "staffCustomerPostalCode",
+    getDisplayedValue("postalCode")
+  );
+
+  setText(
+    "staffCustomerAddress",
+    getDisplayedValue("fullAddress")
+  );
+
+  setText(
+    "staffCustomerCarName",
+    getDisplayedValue("carName")
+  );
+
+  setText(
+    "staffCustomerRegistrationNumber",
+    getDisplayedValue("registrationNumber")
+  );
+
+}
+
+    // ========================================
+// スタッフ用顧客情報カード 開閉
+// ========================================
+
+const staffCustomerToggle =
+  document.getElementById(
+    "staffCustomerToggle"
+  );
+
+const staffCustomerDetails =
+  document.getElementById(
+    "staffCustomerDetails"
+  );
+
+const staffCustomerToggleText =
+  document.getElementById(
+    "staffCustomerToggleText"
+  );
+
+
+staffCustomerToggle.addEventListener(
+  "click",
+  function () {
+
+    const isClosed =
+      staffCustomerDetails.classList.toggle(
+        "is-closed"
+      );
+
+
+    this.setAttribute(
+      "aria-expanded",
+      String(!isClosed)
+    );
+
+
+    staffCustomerToggleText.textContent =
+      isClosed
+        ? "▼ 開く"
+        : "▲ 閉じる";
+
+  }
+);
 
     function getDisplayedValue(id) {
 
@@ -3531,27 +3871,22 @@ document
 
 
         // ========================================
-        // 顧客情報画面をスタッフ用として再表示
-        // ========================================
+// 最新の顧客情報をスタッフ画面へ反映
+// ========================================
 
-        document
-          .getElementById(
-            "customerInfo"
-          )
-          .style.display =
-          "block";
+setStaffCustomerInformation();
 
 
-        // ========================================
-        // お客様向け確認完了カードを非表示
-        // ========================================
+// ========================================
+// スタッフ画面を表示
+// ========================================
 
-        document
-          .getElementById(
-            "confirmationCard"
-          )
-          .style.display =
-          "none";
+document
+  .getElementById(
+    "staffScreen"
+  )
+  .style.display =
+  "block";
 
 
         // ========================================
