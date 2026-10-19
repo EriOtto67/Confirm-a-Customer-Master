@@ -1552,122 +1552,656 @@
 
 
     <div
-      id="staffCustomerDetails"
-      class="staff-customer-details"
+  id="staffCustomerDetails"
+  class="staff-customer-details"
+>
+
+  <!-- ====================================== -->
+  <!-- フリガナ -->
+  <!-- ====================================== -->
+
+  <div class="row">
+
+    <div class="label">
+      フリガナ
+    </div>
+
+    <div class="editable-display">
+
+      <div
+        class="value"
+        id="staffCustomerFurigana"
+      ></div>
+
+      <button
+        type="button"
+        class="edit-button staff-edit-button"
+        data-editor-id="staffFuriganaEditor"
+      >
+        修正
+      </button>
+
+    </div>
+
+    <div
+      id="staffFuriganaEditor"
+      class="edit-panel staff-edit-panel"
     >
 
-      <div class="row">
+      <div class="edit-form-group">
 
-        <div class="label">
+        <label for="staffEditFurigana">
           フリガナ
-        </div>
+        </label>
+
+        <input
+          type="text"
+          id="staffEditFurigana"
+          placeholder="例：ヤマダ タロウ"
+        >
 
         <div
-          class="value"
-          id="staffCustomerFurigana"
+          id="staffEditFuriganaMessage"
+          class="edit-message"
         ></div>
 
       </div>
 
+      <div class="edit-button-row">
 
-      <div class="row">
+        <button
+          type="button"
+          class="edit-cancel-button staff-edit-cancel-button"
+          data-editor-id="staffFuriganaEditor"
+        >
+          キャンセル
+        </button>
 
-        <div class="label">
+        <button
+          type="button"
+          id="staffSaveFuriganaButton"
+          class="edit-save-button"
+        >
+          保存
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ====================================== -->
+  <!-- 氏名 -->
+  <!-- ====================================== -->
+
+  <div class="row">
+
+    <div class="label">
+      氏名
+    </div>
+
+    <div class="editable-display">
+
+      <div
+        class="value name-value"
+        id="staffCustomerName"
+      ></div>
+
+      <button
+        type="button"
+        class="edit-button staff-edit-button"
+        data-editor-id="staffNameEditor"
+      >
+        修正
+      </button>
+
+    </div>
+
+    <div
+      id="staffNameEditor"
+      class="edit-panel staff-edit-panel"
+    >
+
+      <div class="edit-form-group">
+
+        <label for="staffEditName">
           氏名
-        </div>
+        </label>
+
+        <input
+          type="text"
+          id="staffEditName"
+          placeholder="例：山田 太郎"
+        >
 
         <div
-          class="value name-value"
-          id="staffCustomerName"
+          id="staffEditNameMessage"
+          class="edit-message"
         ></div>
 
       </div>
 
+      <div class="edit-button-row">
 
-      <div class="row">
+        <button
+          type="button"
+          class="edit-cancel-button staff-edit-cancel-button"
+          data-editor-id="staffNameEditor"
+        >
+          キャンセル
+        </button>
 
-        <div class="label">
+        <button
+          type="button"
+          id="staffSaveNameButton"
+          class="edit-save-button"
+        >
+          保存
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ====================================== -->
+  <!-- 自宅番号 -->
+  <!-- ====================================== -->
+
+  <div class="row">
+
+    <div class="label">
+      自宅番号
+    </div>
+
+    <div class="editable-display">
+
+      <div
+        class="value"
+        id="staffCustomerPhoneHome"
+      ></div>
+
+      <button
+        type="button"
+        class="edit-button staff-edit-button"
+        data-editor-id="staffPhoneHomeEditor"
+      >
+        修正
+      </button>
+
+    </div>
+
+    <div
+      id="staffPhoneHomeEditor"
+      class="edit-panel staff-edit-panel"
+    >
+
+      <div class="edit-form-group">
+
+        <label for="staffEditPhoneHome">
           自宅番号
-        </div>
+        </label>
+
+        <input
+          type="tel"
+          id="staffEditPhoneHome"
+          inputmode="tel"
+          placeholder="例：0748-12-3456"
+        >
 
         <div
-          class="value"
-          id="staffCustomerPhoneHome"
+          id="staffEditPhoneHomeMessage"
+          class="edit-message"
         ></div>
 
       </div>
 
+      <div class="edit-button-row">
 
-      <div class="row">
+        <button
+          type="button"
+          class="edit-cancel-button staff-edit-cancel-button"
+          data-editor-id="staffPhoneHomeEditor"
+        >
+          キャンセル
+        </button>
 
-        <div class="label">
+        <button
+          type="button"
+          id="staffSavePhoneHomeButton"
+          class="edit-save-button"
+        >
+          保存
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ====================================== -->
+  <!-- 携帯番号 -->
+  <!-- ====================================== -->
+
+  <div class="row">
+
+    <div class="label">
+      携帯番号
+    </div>
+
+    <div class="editable-display">
+
+      <div
+        class="value"
+        id="staffCustomerPhoneMobile"
+      ></div>
+
+      <button
+        type="button"
+        class="edit-button staff-edit-button"
+        data-editor-id="staffPhoneMobileEditor"
+      >
+        修正
+      </button>
+
+    </div>
+
+    <div
+      id="staffPhoneMobileEditor"
+      class="edit-panel staff-edit-panel"
+    >
+
+      <div class="edit-form-group">
+
+        <label for="staffEditPhoneMobile">
           携帯番号
-        </div>
+        </label>
+
+        <input
+          type="tel"
+          id="staffEditPhoneMobile"
+          inputmode="tel"
+          placeholder="例：090-1234-5678"
+        >
 
         <div
-          class="value"
-          id="staffCustomerPhoneMobile"
+          id="staffEditPhoneMobileMessage"
+          class="edit-message"
         ></div>
 
       </div>
 
+      <div class="edit-button-row">
 
-      <div class="row">
+        <button
+          type="button"
+          class="edit-cancel-button staff-edit-cancel-button"
+          data-editor-id="staffPhoneMobileEditor"
+        >
+          キャンセル
+        </button>
 
-        <div class="label">
-          郵便番号
-        </div>
+        <button
+          type="button"
+          id="staffSavePhoneMobileButton"
+          class="edit-save-button"
+        >
+          保存
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ====================================== -->
+  <!-- 郵便番号・住所 -->
+  <!-- ====================================== -->
+
+  <div class="row">
+
+    <div class="label">
+      郵便番号・住所
+    </div>
+
+    <div class="editable-display">
+
+      <div>
 
         <div
           class="value"
           id="staffCustomerPostalCode"
         ></div>
 
-      </div>
-
-
-      <div class="row">
-
-        <div class="label">
-          住所
-        </div>
-
         <div
           class="value address-value"
           id="staffCustomerAddress"
+          style="margin-top: 10px;"
+        ></div>
+
+      </div>
+
+      <button
+        type="button"
+        class="edit-button staff-edit-button"
+        data-editor-id="staffAddressEditor"
+      >
+        修正
+      </button>
+
+    </div>
+
+    <div
+      id="staffAddressEditor"
+      class="edit-panel staff-edit-panel"
+    >
+
+      <div class="address-guide">
+        郵便番号を入力すると、住所1～3が自動反映します。<br>
+        住所4（丁目・番地・マンション・アパート）のみ入力して下さい。
+      </div>
+
+      <div class="edit-form-group">
+
+        <label for="staffEditPostalCode">
+          郵便番号
+        </label>
+
+        <input
+          type="text"
+          id="staffEditPostalCode"
+          inputmode="numeric"
+          maxlength="8"
+          placeholder="例：523-0892"
+          autocomplete="postal-code"
+        >
+
+        <div class="zip-input-guide">
+          半角数字で入力してください（ハイフンは自動入力されます）。
+        </div>
+
+        <div
+          id="staffEditPostalCodeMessage"
+          class="zip-message"
+          aria-live="polite"
         ></div>
 
       </div>
 
 
-      <div class="row">
+      <div class="edit-form-group">
 
-        <div class="label">
-          車名
-        </div>
+        <label for="staffEditAddress1">
+          住所1
+          <span class="optional-label">
+            都道府県
+          </span>
+        </label>
 
-        <div
-          class="value"
-          id="staffCustomerCarName"
-        ></div>
+        <input
+          type="text"
+          id="staffEditAddress1"
+          placeholder="郵便番号から自動反映します"
+          autocomplete="address-level1"
+          readonly
+          tabindex="-1"
+        >
 
       </div>
 
 
-      <div class="row">
+      <div class="edit-form-group">
 
-        <div class="label">
-          登録番号
-        </div>
+        <label for="staffEditAddress2">
+          住所2
+          <span class="optional-label">
+            市区町村
+          </span>
+        </label>
 
-        <div
-          class="value"
-          id="staffCustomerRegistrationNumber"
-        ></div>
+        <input
+          type="text"
+          id="staffEditAddress2"
+          placeholder="郵便番号から自動反映します"
+          autocomplete="address-level2"
+          readonly
+          tabindex="-1"
+        >
+
+      </div>
+
+
+      <div class="edit-form-group">
+
+        <label for="staffEditAddress3">
+          住所3
+          <span class="optional-label">
+            町域
+          </span>
+        </label>
+
+        <input
+          type="text"
+          id="staffEditAddress3"
+          placeholder="郵便番号から自動反映します"
+          autocomplete="address-line1"
+          readonly
+          tabindex="-1"
+        >
+
+      </div>
+
+
+      <div class="edit-form-group">
+
+        <label for="staffEditAddressManual">
+          住所4
+          <span class="required-label">
+            必須
+          </span>
+        </label>
+
+        <input
+          type="text"
+          id="staffEditAddressManual"
+          placeholder="例：1丁目2-3 尾賀亀ハイツ105号室"
+          autocomplete="address-line2"
+        >
+
+      </div>
+
+
+      <div
+        id="staffEditAddressMessage"
+        class="edit-message"
+      ></div>
+
+
+      <div class="edit-button-row">
+
+        <button
+          type="button"
+          class="edit-cancel-button staff-edit-cancel-button"
+          data-editor-id="staffAddressEditor"
+        >
+          キャンセル
+        </button>
+
+        <button
+          type="button"
+          id="staffSaveAddressButton"
+          class="edit-save-button"
+        >
+          保存
+        </button>
 
       </div>
 
     </div>
+
+  </div>
+
+
+  <!-- ====================================== -->
+  <!-- 車名 -->
+  <!-- ====================================== -->
+
+  <div class="row">
+
+    <div class="label">
+      車名
+    </div>
+
+    <div class="editable-display">
+
+      <div
+        class="value"
+        id="staffCustomerCarName"
+      ></div>
+
+      <button
+        type="button"
+        class="edit-button staff-edit-button"
+        data-editor-id="staffCarNameEditor"
+      >
+        修正
+      </button>
+
+    </div>
+
+    <div
+      id="staffCarNameEditor"
+      class="edit-panel staff-edit-panel"
+    >
+
+      <div class="edit-form-group">
+
+        <label for="staffEditCarName">
+          車名
+        </label>
+
+        <input
+          type="text"
+          id="staffEditCarName"
+          placeholder="車名を入力して下さい"
+        >
+
+        <div
+          id="staffEditCarNameMessage"
+          class="edit-message"
+        ></div>
+
+      </div>
+
+      <div class="edit-button-row">
+
+        <button
+          type="button"
+          class="edit-cancel-button staff-edit-cancel-button"
+          data-editor-id="staffCarNameEditor"
+        >
+          キャンセル
+        </button>
+
+        <button
+          type="button"
+          id="staffSaveCarNameButton"
+          class="edit-save-button"
+        >
+          保存
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ====================================== -->
+  <!-- 登録番号 -->
+  <!-- ====================================== -->
+
+  <div class="row">
+
+    <div class="label">
+      登録番号
+    </div>
+
+    <div class="editable-display">
+
+      <div
+        class="value"
+        id="staffCustomerRegistrationNumber"
+      ></div>
+
+      <button
+        type="button"
+        class="edit-button staff-edit-button"
+        data-editor-id="staffRegistrationNumberEditor"
+      >
+        修正
+      </button>
+
+    </div>
+
+    <div
+      id="staffRegistrationNumberEditor"
+      class="edit-panel staff-edit-panel"
+    >
+
+      <div class="edit-form-group">
+
+        <label for="staffEditRegistrationNumber">
+          登録番号
+        </label>
+
+        <input
+          type="text"
+          id="staffEditRegistrationNumber"
+          placeholder="例：滋賀580あ1234"
+        >
+
+        <div
+          id="staffEditRegistrationNumberMessage"
+          class="edit-message"
+        ></div>
+
+      </div>
+
+      <div class="edit-button-row">
+
+        <button
+          type="button"
+          class="edit-cancel-button staff-edit-cancel-button"
+          data-editor-id="staffRegistrationNumberEditor"
+        >
+          キャンセル
+        </button>
+
+        <button
+          type="button"
+          id="staffSaveRegistrationNumberButton"
+          class="edit-save-button"
+        >
+          保存
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
 
   </div>
 
@@ -3929,6 +4463,1311 @@ document
       }
     );
 
+    // ========================================
+// スタッフ画面 項目別修正
+// ========================================
+
+const staffEditFuriganaInput =
+  document.getElementById(
+    "staffEditFurigana"
+  );
+
+const staffEditNameInput =
+  document.getElementById(
+    "staffEditName"
+  );
+
+const staffEditPhoneHomeInput =
+  document.getElementById(
+    "staffEditPhoneHome"
+  );
+
+const staffEditPhoneMobileInput =
+  document.getElementById(
+    "staffEditPhoneMobile"
+  );
+
+const staffEditPostalCodeInput =
+  document.getElementById(
+    "staffEditPostalCode"
+  );
+
+const staffEditAddress1Input =
+  document.getElementById(
+    "staffEditAddress1"
+  );
+
+const staffEditAddress2Input =
+  document.getElementById(
+    "staffEditAddress2"
+  );
+
+const staffEditAddress3Input =
+  document.getElementById(
+    "staffEditAddress3"
+  );
+
+const staffEditAddressManualInput =
+  document.getElementById(
+    "staffEditAddressManual"
+  );
+
+const staffEditCarNameInput =
+  document.getElementById(
+    "staffEditCarName"
+  );
+
+const staffEditRegistrationNumberInput =
+  document.getElementById(
+    "staffEditRegistrationNumber"
+  );
+
+
+// ========================================
+// スタッフ側の編集メッセージを消去
+// ========================================
+
+function clearStaffEditMessages() {
+
+  document
+    .querySelectorAll(
+      ".staff-edit-panel .edit-message"
+    )
+    .forEach(function (message) {
+
+      message.textContent = "";
+
+    });
+
+
+  const postalCodeMessage =
+    document.getElementById(
+      "staffEditPostalCodeMessage"
+    );
+
+  postalCodeMessage.textContent = "";
+
+  postalCodeMessage.className =
+    "zip-message";
+
+}
+
+
+// ========================================
+// スタッフ側の編集欄をすべて閉じる
+// ========================================
+
+function closeAllStaffEditors() {
+
+  document
+    .querySelectorAll(
+      ".staff-edit-panel"
+    )
+    .forEach(function (editor) {
+
+      editor.classList.remove(
+        "is-open"
+      );
+
+    });
+
+}
+
+
+// ========================================
+// スタッフ側編集欄に現在値をセット
+// ========================================
+
+function setStaffEditorCurrentValue(
+  editorId
+) {
+
+  clearStaffEditMessages();
+
+
+  if (
+    editorId ===
+    "staffFuriganaEditor"
+  ) {
+
+    staffEditFuriganaInput.value =
+      getDisplayedValue(
+        "staffCustomerFurigana"
+      );
+
+  }
+
+
+  if (
+    editorId ===
+    "staffNameEditor"
+  ) {
+
+    staffEditNameInput.value =
+      getDisplayedValue(
+        "staffCustomerName"
+      );
+
+  }
+
+
+  if (
+    editorId ===
+    "staffPhoneHomeEditor"
+  ) {
+
+    staffEditPhoneHomeInput.value =
+      getDisplayedValue(
+        "staffCustomerPhoneHome"
+      );
+
+  }
+
+
+  if (
+    editorId ===
+    "staffPhoneMobileEditor"
+  ) {
+
+    staffEditPhoneMobileInput.value =
+      getDisplayedValue(
+        "staffCustomerPhoneMobile"
+      );
+
+  }
+
+
+  if (
+    editorId ===
+    "staffAddressEditor"
+  ) {
+
+    staffEditPostalCodeInput.value =
+      getDisplayedValue(
+        "postalCode"
+      );
+
+    staffEditAddress1Input.value =
+      getDisplayedValue(
+        "address1"
+      );
+
+    staffEditAddress2Input.value =
+      getDisplayedValue(
+        "address2"
+      );
+
+    staffEditAddress3Input.value =
+      getDisplayedValue(
+        "address3"
+      );
+
+    staffEditAddressManualInput.value =
+      getDisplayedValue(
+        "addressManual"
+      );
+
+  }
+
+
+  if (
+    editorId ===
+    "staffCarNameEditor"
+  ) {
+
+    staffEditCarNameInput.value =
+      getDisplayedValue(
+        "staffCustomerCarName"
+      );
+
+  }
+
+
+  if (
+    editorId ===
+    "staffRegistrationNumberEditor"
+  ) {
+
+    staffEditRegistrationNumberInput.value =
+      getDisplayedValue(
+        "staffCustomerRegistrationNumber"
+      );
+
+  }
+
+}
+
+
+// ========================================
+// スタッフ側 修正ボタン
+// ========================================
+
+document
+  .querySelectorAll(
+    ".staff-edit-button"
+  )
+  .forEach(function (button) {
+
+    button.addEventListener(
+      "click",
+      function () {
+
+        const editorId =
+          this.dataset.editorId;
+
+        const editor =
+          document.getElementById(
+            editorId
+          );
+
+
+        closeAllStaffEditors();
+
+        setStaffEditorCurrentValue(
+          editorId
+        );
+
+        editor.classList.add(
+          "is-open"
+        );
+
+
+        const firstInput =
+          editor.querySelector(
+            "input:not([readonly])"
+          );
+
+
+        if (firstInput) {
+
+          setTimeout(
+            function () {
+
+              firstInput.focus();
+
+            },
+            0
+          );
+
+        }
+
+      }
+    );
+
+  });
+
+
+// ========================================
+// スタッフ側 キャンセルボタン
+// ========================================
+
+document
+  .querySelectorAll(
+    ".staff-edit-cancel-button"
+  )
+  .forEach(function (button) {
+
+    button.addEventListener(
+      "click",
+      function () {
+
+        const editorId =
+          this.dataset.editorId;
+
+        document
+          .getElementById(
+            editorId
+          )
+          .classList.remove(
+            "is-open"
+          );
+
+        clearStaffEditMessages();
+
+      }
+    );
+
+  });
+
+
+// ========================================
+// スタッフ側 電話番号入力制限
+// ========================================
+
+restrictPhoneInput(
+  staffEditPhoneHomeInput
+);
+
+restrictPhoneInput(
+  staffEditPhoneMobileInput
+);
+
+
+// ========================================
+// スタッフ側 単一項目をPower Automateへ保存
+// ========================================
+
+async function saveStaffSingleField(
+  field,
+  value,
+  customerDisplayId,
+  staffDisplayId,
+  editorId,
+  messageElement,
+  saveButton,
+  failureMessage
+) {
+
+  try {
+
+    saveButton.disabled = true;
+
+    saveButton.textContent =
+      "保存中...";
+
+
+    const response =
+      await fetch(
+        UPDATE_FLOW_URL,
+        {
+
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body: JSON.stringify({
+            vehicleId: vehicleId,
+            field: field,
+            value: value
+          })
+
+        }
+      );
+
+
+    const responseText =
+      await response.text();
+
+
+    console.log(
+      field +
+      "更新 HTTPステータス:",
+      response.status
+    );
+
+    console.log(
+      field +
+      "更新 Power Automate応答:",
+      responseText
+    );
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        "更新に失敗しました。HTTPステータス：" +
+        response.status
+      );
+
+    }
+
+
+    let data;
+
+
+    try {
+
+      data =
+        JSON.parse(
+          responseText
+        );
+
+    } catch (error) {
+
+      throw new Error(
+        "Power Automateから正常なJSON応答が返されませんでした。"
+      );
+
+    }
+
+
+    if (data.success !== true) {
+
+      throw new Error(
+        failureMessage
+      );
+
+    }
+
+
+    // お客様側の表示を更新
+    setText(
+      customerDisplayId,
+      value
+    );
+
+
+    // スタッフ側の表示を更新
+    setText(
+      staffDisplayId,
+      value
+    );
+
+
+    // 編集欄を閉じる
+    document
+      .getElementById(
+        editorId
+      )
+      .classList.remove(
+        "is-open"
+      );
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    messageElement.textContent =
+      error && error.message
+        ? error.message
+        : failureMessage;
+
+  } finally {
+
+    saveButton.disabled = false;
+
+    saveButton.textContent =
+      "保存";
+
+  }
+
+}
+
+
+// ========================================
+// スタッフ側 フリガナ保存
+// ========================================
+
+document
+  .getElementById(
+    "staffSaveFuriganaButton"
+  )
+  .addEventListener(
+    "click",
+    async function () {
+
+      const value =
+        staffEditFuriganaInput
+          .value
+          .trim();
+
+      const message =
+        document.getElementById(
+          "staffEditFuriganaMessage"
+        );
+
+      message.textContent = "";
+
+
+      if (value === "") {
+
+        message.textContent =
+          "フリガナを入力して下さい。";
+
+        staffEditFuriganaInput.focus();
+
+        return;
+
+      }
+
+
+      if (
+        !/^[ァ-ヶーＡ-Ｚａ-ｚ０-９　]+$/.test(
+          value
+        )
+      ) {
+
+        message.textContent =
+          "全角カタカナまたは全角英数字で入力して下さい。";
+
+        staffEditFuriganaInput.focus();
+
+        return;
+
+      }
+
+
+      await saveStaffSingleField(
+        "furigana",
+        value,
+        "furigana",
+        "staffCustomerFurigana",
+        "staffFuriganaEditor",
+        message,
+        this,
+        "顧客マスタのフリガナ更新に失敗しました。"
+      );
+
+    }
+  );
+
+
+// ========================================
+// スタッフ側 氏名保存
+// ========================================
+
+document
+  .getElementById(
+    "staffSaveNameButton"
+  )
+  .addEventListener(
+    "click",
+    async function () {
+
+      const value =
+        staffEditNameInput
+          .value
+          .trim();
+
+      const message =
+        document.getElementById(
+          "staffEditNameMessage"
+        );
+
+      message.textContent = "";
+
+
+      if (value === "") {
+
+        message.textContent =
+          "氏名を入力して下さい。";
+
+        staffEditNameInput.focus();
+
+        return;
+
+      }
+
+
+      await saveStaffSingleField(
+        "name",
+        value,
+        "name",
+        "staffCustomerName",
+        "staffNameEditor",
+        message,
+        this,
+        "顧客マスタの氏名更新に失敗しました。"
+      );
+
+    }
+  );
+
+
+// ========================================
+// スタッフ側 自宅番号保存
+// ========================================
+
+document
+  .getElementById(
+    "staffSavePhoneHomeButton"
+  )
+  .addEventListener(
+    "click",
+    async function () {
+
+      const value =
+        staffEditPhoneHomeInput
+          .value
+          .trim();
+
+      const message =
+        document.getElementById(
+          "staffEditPhoneHomeMessage"
+        );
+
+      message.textContent = "";
+
+
+      if (!checkPhoneNumber(value)) {
+
+        message.textContent =
+          "自宅番号は半角数字と2個のハイフンで入力して下さい。例：0748-12-3456";
+
+        staffEditPhoneHomeInput.focus();
+
+        return;
+
+      }
+
+
+      await saveStaffSingleField(
+        "phoneHome",
+        value,
+        "phoneHome",
+        "staffCustomerPhoneHome",
+        "staffPhoneHomeEditor",
+        message,
+        this,
+        "顧客マスタの自宅番号更新に失敗しました。"
+      );
+
+    }
+  );
+
+
+// ========================================
+// スタッフ側 携帯番号保存
+// ========================================
+
+document
+  .getElementById(
+    "staffSavePhoneMobileButton"
+  )
+  .addEventListener(
+    "click",
+    async function () {
+
+      const value =
+        staffEditPhoneMobileInput
+          .value
+          .trim();
+
+      const message =
+        document.getElementById(
+          "staffEditPhoneMobileMessage"
+        );
+
+      message.textContent = "";
+
+
+      if (!checkPhoneNumber(value)) {
+
+        message.textContent =
+          "携帯番号は半角数字と2個のハイフンで入力して下さい。例：090-1234-5678";
+
+        staffEditPhoneMobileInput.focus();
+
+        return;
+
+      }
+
+
+      await saveStaffSingleField(
+        "phoneMobile",
+        value,
+        "phoneMobile",
+        "staffCustomerPhoneMobile",
+        "staffPhoneMobileEditor",
+        message,
+        this,
+        "顧客マスタの携帯番号更新に失敗しました。"
+      );
+
+    }
+  );
+
+
+// ========================================
+// スタッフ側 車名保存
+// ========================================
+
+document
+  .getElementById(
+    "staffSaveCarNameButton"
+  )
+  .addEventListener(
+    "click",
+    async function () {
+
+      const value =
+        staffEditCarNameInput
+          .value
+          .trim();
+
+      const message =
+        document.getElementById(
+          "staffEditCarNameMessage"
+        );
+
+      message.textContent = "";
+
+
+      if (value === "") {
+
+        message.textContent =
+          "車名を入力して下さい。";
+
+        staffEditCarNameInput.focus();
+
+        return;
+
+      }
+
+
+      await saveStaffSingleField(
+        "carName",
+        value,
+        "carName",
+        "staffCustomerCarName",
+        "staffCarNameEditor",
+        message,
+        this,
+        "顧客マスタの車名更新に失敗しました。"
+      );
+
+    }
+  );
+
+
+// ========================================
+// スタッフ側 登録番号保存
+// ========================================
+
+document
+  .getElementById(
+    "staffSaveRegistrationNumberButton"
+  )
+  .addEventListener(
+    "click",
+    async function () {
+
+      const value =
+        staffEditRegistrationNumberInput
+          .value
+          .trim();
+
+      const message =
+        document.getElementById(
+          "staffEditRegistrationNumberMessage"
+        );
+
+      message.textContent = "";
+
+
+      if (value === "") {
+
+        message.textContent =
+          "登録番号を入力して下さい。";
+
+        staffEditRegistrationNumberInput.focus();
+
+        return;
+
+      }
+
+
+      await saveStaffSingleField(
+        "registrationNumber",
+        value,
+        "registrationNumber",
+        "staffCustomerRegistrationNumber",
+        "staffRegistrationNumberEditor",
+        message,
+        this,
+        "顧客マスタの登録番号更新に失敗しました。"
+      );
+
+    }
+  );
+
+
+// ========================================
+// スタッフ側 郵便番号検索メッセージ
+// ========================================
+
+const staffEditPostalCodeMessage =
+  document.getElementById(
+    "staffEditPostalCodeMessage"
+  );
+
+
+function showStaffPostalCodeMessage(
+  message,
+  type
+) {
+
+  staffEditPostalCodeMessage.textContent =
+    message;
+
+  staffEditPostalCodeMessage.className =
+    "zip-message";
+
+
+  if (type) {
+
+    staffEditPostalCodeMessage
+      .classList
+      .add(
+        type
+      );
+
+  }
+
+}
+
+
+// ========================================
+// スタッフ側 郵便番号入力
+// ========================================
+
+staffEditPostalCodeInput.addEventListener(
+  "input",
+  function () {
+
+    let numbers =
+      this.value.replace(
+        /[^0-9]/g,
+        ""
+      );
+
+    numbers =
+      numbers.slice(
+        0,
+        7
+      );
+
+
+    if (numbers.length > 3) {
+
+      this.value =
+        numbers.slice(
+          0,
+          3
+        ) +
+        "-" +
+        numbers.slice(
+          3
+        );
+
+    } else {
+
+      this.value =
+        numbers;
+
+    }
+
+
+    document
+      .getElementById(
+        "staffEditAddressMessage"
+      )
+      .textContent = "";
+
+
+    if (numbers.length === 0) {
+
+      staffEditAddress1Input.value = "";
+      staffEditAddress2Input.value = "";
+      staffEditAddress3Input.value = "";
+
+      showStaffPostalCodeMessage(
+        "",
+        ""
+      );
+
+      return;
+
+    }
+
+
+    if (numbers.length === 7) {
+
+      searchStaffAddress(
+        this.value
+      );
+
+      return;
+
+    }
+
+
+    staffEditAddress1Input.value = "";
+    staffEditAddress2Input.value = "";
+    staffEditAddress3Input.value = "";
+
+
+    showStaffPostalCodeMessage(
+      "郵便番号を入力して下さい。例：523-0892",
+      ""
+    );
+
+  }
+);
+
+
+// ========================================
+// スタッフ側 郵便番号から住所検索
+// ========================================
+
+async function searchStaffAddress(
+  postalCode
+) {
+
+  showStaffPostalCodeMessage(
+    "住所を検索しています。",
+    ""
+  );
+
+
+  try {
+
+    const url =
+      "https://zipcloud.ibsnet.co.jp/api/search?zipcode=" +
+      encodeURIComponent(
+        postalCode
+      );
+
+
+    const response =
+      await fetch(
+        url
+      );
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        "通信エラー：" +
+        response.status
+      );
+
+    }
+
+
+    const result =
+      await response.json();
+
+
+    if (
+      result.status !== 200 ||
+      !result.results ||
+      result.results.length === 0
+    ) {
+
+      staffEditAddress1Input.value = "";
+      staffEditAddress2Input.value = "";
+      staffEditAddress3Input.value = "";
+
+
+      showStaffPostalCodeMessage(
+        "該当する住所が見つかりませんでした。",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    const address =
+      result.results[0];
+
+
+    staffEditAddress1Input.value =
+      address.address1 || "";
+
+    staffEditAddress2Input.value =
+      address.address2 || "";
+
+    staffEditAddress3Input.value =
+      address.address3 || "";
+
+
+    showStaffPostalCodeMessage(
+      "住所1～3を自動入力しました。",
+      "success"
+    );
+
+
+    staffEditAddressManualInput.focus();
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    staffEditAddress1Input.value = "";
+    staffEditAddress2Input.value = "";
+    staffEditAddress3Input.value = "";
+
+
+    showStaffPostalCodeMessage(
+      "住所を取得できませんでした。通信状況を確認して下さい。",
+      "error"
+    );
+
+  }
+
+}
+
+
+// ========================================
+// スタッフ側 郵便番号・住所保存
+// ========================================
+
+document
+  .getElementById(
+    "staffSaveAddressButton"
+  )
+  .addEventListener(
+    "click",
+    async function () {
+
+      const postalCode =
+        staffEditPostalCodeInput
+          .value
+          .trim();
+
+      const address1 =
+        staffEditAddress1Input
+          .value
+          .trim();
+
+      const address2 =
+        staffEditAddress2Input
+          .value
+          .trim();
+
+      const address3 =
+        staffEditAddress3Input
+          .value
+          .trim();
+
+      const addressManual =
+        staffEditAddressManualInput
+          .value
+          .trim();
+
+      const message =
+        document.getElementById(
+          "staffEditAddressMessage"
+        );
+
+      const saveButton =
+        document.getElementById(
+          "staffSaveAddressButton"
+        );
+
+
+      message.textContent = "";
+
+
+      if (
+        !/^\d{3}-\d{4}$/.test(
+          postalCode
+        )
+      ) {
+
+        message.textContent =
+          "郵便番号を例の形式で入力して下さい。例：523-0892";
+
+        staffEditPostalCodeInput.focus();
+
+        return;
+
+      }
+
+
+      if (
+        address1 === "" ||
+        address2 === ""
+      ) {
+
+        message.textContent =
+          "郵便番号から住所を取得して下さい。";
+
+        staffEditPostalCodeInput.focus();
+
+        return;
+
+      }
+
+
+      if (addressManual === "") {
+
+        message.textContent =
+          "住所4（丁目・番地・マンション・アパート）を入力して下さい。";
+
+        staffEditAddressManualInput.focus();
+
+        return;
+
+      }
+
+
+      try {
+
+        saveButton.disabled = true;
+
+        saveButton.textContent =
+          "保存中...";
+
+
+        const response =
+          await fetch(
+            UPDATE_FLOW_URL,
+            {
+
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body: JSON.stringify({
+                vehicleId: vehicleId,
+                field: "address",
+                postalCode: postalCode,
+                address1: address1,
+                address2: address2,
+                address3: address3,
+                addressManual: addressManual
+              })
+
+            }
+          );
+
+
+        const responseText =
+          await response.text();
+
+
+        console.log(
+          "スタッフ住所更新 HTTPステータス:",
+          response.status
+        );
+
+        console.log(
+          "スタッフ住所更新 Power Automate応答:",
+          responseText
+        );
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            "更新に失敗しました。HTTPステータス：" +
+            response.status
+          );
+
+        }
+
+
+        let data;
+
+
+        try {
+
+          data =
+            JSON.parse(
+              responseText
+            );
+
+        } catch (error) {
+
+          throw new Error(
+            "Power Automateから正常なJSON応答が返されませんでした。"
+          );
+
+        }
+
+
+        if (data.success !== true) {
+
+          throw new Error(
+            "顧客マスタの住所更新に失敗しました。"
+          );
+
+        }
+
+
+        // お客様側の住所データを更新
+        setText(
+          "postalCode",
+          postalCode
+        );
+
+        setText(
+          "address1",
+          address1
+        );
+
+        setText(
+          "address2",
+          address2
+        );
+
+        setText(
+          "address3",
+          address3
+        );
+
+        setText(
+          "addressManual",
+          addressManual
+        );
+
+
+        // お客様側の結合住所を更新
+        updateFullAddress();
+
+
+        // スタッフ側の郵便番号を更新
+        setText(
+          "staffCustomerPostalCode",
+          postalCode
+        );
+
+
+        // スタッフ側の結合住所を更新
+        setText(
+          "staffCustomerAddress",
+          [
+            address1,
+            address2,
+            address3,
+            addressManual
+          ]
+            .filter(Boolean)
+            .join("")
+        );
+
+
+        document
+          .getElementById(
+            "staffAddressEditor"
+          )
+          .classList.remove(
+            "is-open"
+          );
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        message.textContent =
+          error && error.message
+            ? error.message
+            : "顧客マスタの住所更新に失敗しました。";
+
+      } finally {
+
+        saveButton.disabled = false;
+
+        saveButton.textContent =
+          "保存";
+
+      }
+
+    }
+  );
 
     loadCustomer();
   
