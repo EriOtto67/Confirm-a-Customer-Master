@@ -2247,7 +2247,7 @@
           キャンセル
         </button>
 
-                <button
+                        <button
           type="button"
           id="staffSaveRegistrationNumberButton"
           class="edit-save-button"
@@ -2261,19 +2261,44 @@
 
   </div>
 
+</div>
+<!-- staffCustomerDetails 終了 -->
 
-  <!-- ====================================== -->
-  <!-- 車両詳細情報 -->
-  <!-- ====================================== -->
+</div>
+<!-- 顧客情報カード終了 -->
 
-  <div class="info-card">
 
-    <div class="card-header">
+<!-- ====================================== -->
+<!-- 車両詳細情報 -->
+<!-- ====================================== -->
+
+<div class="info-card staff-vehicle-card">
+
+  <button
+    type="button"
+    id="staffVehicleToggle"
+    class="staff-customer-toggle"
+    aria-expanded="true"
+  >
+
+    <span>
       車両詳細情報
-    </div>
+    </span>
 
-    <div class="card-body">
+    <span
+      id="staffVehicleToggleText"
+      class="staff-customer-toggle-text"
+    >
+      ▲ 閉じる
+    </span>
 
+  </button>
+
+
+  <div
+    id="staffVehicleDetails"
+    class="staff-customer-details"
+  >
 
       <!-- 初度登録年月 -->
 
@@ -2501,7 +2526,7 @@
 
       <!-- 保存ボタン -->
 
-      <button
+            <button
         type="button"
         id="staffSaveVehicleDetailsButton"
         class="confirm-button"
@@ -2510,13 +2535,15 @@
       </button>
 
 
-    </div>
-
   </div>
+  <!-- staffVehicleDetails 終了 -->
+
+</div>
+<!-- 車両詳細情報カード終了 -->
 
 
 </div>
-<!-- ↑ staffScreen終了 -->
+<!-- staffScreen終了 -->
 
   </div>
 
@@ -2922,6 +2949,50 @@ staffCustomerToggle.addEventListener(
 
 
     staffCustomerToggleText.textContent =
+      isClosed
+        ? "▼ 開く"
+        : "▲ 閉じる";
+
+  }
+);
+
+    // ========================================
+// スタッフ用車両詳細情報カード 開閉
+// ========================================
+
+const staffVehicleToggle =
+  document.getElementById(
+    "staffVehicleToggle"
+  );
+
+const staffVehicleDetails =
+  document.getElementById(
+    "staffVehicleDetails"
+  );
+
+const staffVehicleToggleText =
+  document.getElementById(
+    "staffVehicleToggleText"
+  );
+
+
+staffVehicleToggle.addEventListener(
+  "click",
+  function () {
+
+    const isClosed =
+      staffVehicleDetails.classList.toggle(
+        "is-closed"
+      );
+
+
+    this.setAttribute(
+      "aria-expanded",
+      String(!isClosed)
+    );
+
+
+    staffVehicleToggleText.textContent =
       isClosed
         ? "▼ 開く"
         : "▲ 閉じる";
