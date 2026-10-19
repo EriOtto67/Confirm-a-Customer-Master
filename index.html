@@ -704,6 +704,27 @@
 .calendar-input-wrapper input.has-value + .calendar-placeholder {
   display: none;
 }
+
+    /* ====================================== */
+/* 選択済み日付の西暦・和暦表示 */
+/* ====================================== */
+
+.calendar-selected-date {
+* display: none;
+  margin-top: 9px;*  padding: 10px 12px;
+  background*color: #f0f8f3;
+  border-left: 4px*solid #00b84f;
+  border-radius: 4p*;
+  color: #333333;
+  font-size: 1*px;
+  font-weight: 600;
+  line-hei*ht: 1.6;
+}
+
+.calendar-selected-dat*.has-value {
+  display: block;
+}
+`*
     
 </style>
   
@@ -2276,6 +2297,11 @@
   </span>
 
 </div>
+
+<div
+  id="staffFirstRegistrationDateDisplay"
+  class="calendar-selected-date"
+></div>
 
         </div>
 
@@ -5125,64 +5151,197 @@ const staffInspectionExpiryDateInput =
     "staffInspectionExpiryDate"
   );
 
-    // ========================================
-// カレンダー入力 表示制御
+// ========================================
+// カレンダー入力の表示制御
 // ========================================
 
-function updateCalendarInputDisplay(
-  input
+const staffFirstRegistrationDateDisplay =
+  document.getElementById(
+    "staffFirstRegistrationDateDisplay"
+  );
+
+const staffInspectionExpiryDateDisplay =
+  document.getElementById(
+    "staffInspectionExpiryDateDisplay"
+  );
+
+
+// ========================================
+// 和暦へ変換
+// ========================================
+
+function formatJapaneseCalendarDate(
+  year,
+  month,
+  day,
+  includeDay
 ) {
 
-  if (input.value) {
-
-    input.classList.add(
-      "has-value"
+  const date =
+    new Date(
+      year,
+      month - 1,
+      day
     );
 
-  } else {
+  const options =
+    includeDay
+      ? {
+          era: "long",
+          year: "numeric",
+          month: "numeric",
+          day: "numeric"
+        }
+      : {
+          era: "long",
+          year: "numeric",
+          month: "numeric"
+        };
 
-    input.classList.remove(
-      "has-value"
-    );
-
-  }
+  return new Intl.DateTimeFormat(
+    "ja-JP-u-ca-japanese",
+    options
+  ).format(
+    date
+  );
 
 }
 
 
-staffFirstRegistrationDateInput
-  .addEventListener(
-    "change",
-    function () {
+// ========================================
+// 初度登録年月の表示更新
+// ========================================
 
-      updateCalendarInputDisplay(
-        this
+function updateFirstRegistrationDateDisplay() {
+
+  const value =
+    staffFirstRegistrationDateInput.value;
+
+
+  if (value === "") {
+
+    staffFirstRegistrationDateInput
+      .classList
+      .remove(
+        "has-value"
       );
 
-    }
-  );
-
-
-staffInspectionExpiryDateInput
-  .addEventListener(
-    "change",
-    function () {
-
-      updateCalendarInputDisplay(
-        this
+    staffFirstRegistrationDateDisplay
+      .classList
+      .remove(
+        "has-value"
       );
 
-    }
-  );
+    staffFirstRegistrationDateDisplay
+      .textContent = "";
+
+    return;
+
+  }
 
 
-updateCalendarInputDisplay(
+  const parts =
+    value.split("-");
+
+  const year =
+    Number(
+      parts[0]
+    );
+
+  const month =
+    Number(
+      parts[1]
+    );
+
+
+  const westernDate =
+    year +
+    "年" +
+    month +
+    "月";
+
+
+  const japaneseDate =
+    formatJapaneseCalendarDate(
+      year,
+      month,
+      1,
+      false
+    );
+
+
   staffFirstRegistrationDateInput
-);
+    .classList
+    .add(
+      "has-value"
+    );
 
-updateCalendarInputDisplay(
-  staffInspectionExpiryDateInput
-);
+
+  staffFirstRegistrationDateDisplay
+    .textContent =
+    westernDate +
+    "（" +
+    japaneseDate +
+    "）";
+
+
+  staffFirstRegistrationDateDisplay
+    .classList
+    .add(
+      "has-value"
+    );
+
+}
+
+
+// ========================================
+// 車検満了日の表示更新
+// ========================================
+
+function updateInspectionExpiryDateDisplay() {
+
+  const value =
+    staffInspectionExpiryDateInput.value;
+
+
+  if (value === "") {
+
+    staffInspectionExpiryDateInput
+      .classList
+      .remove(
+        "has-value"
+      );
+
+    staffInspectionExpiryDateDisplay
+      .classList
+      .remove(
+        "has-value"
+      );
+
+    staffInspectionExpiryDateDisplay
+      .textContent = "";
+
+    return;
+
+  }
+
+
+  const parts =
+    value.split("-");
+
+  const year =
+    Number(
+      parts[0]
+    );
+
+  const month =
+    Number(
+      parts[1]
+    );
+
+  const day =
+    Number(
+ 
 
 // ========================================
 // 半角英数字・記号のみ
