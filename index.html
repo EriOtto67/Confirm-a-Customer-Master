@@ -6162,29 +6162,63 @@ function formatJapaneseCalendarDate(
       day
     );
 
-  const options =
-    includeDay
-      ? {
-          era: "long",
-          year: "numeric",
-          month: "numeric",
-          day: "numeric"
-        }
-      : {
-          era: "long",
-          year: "numeric",
-          month: "numeric"
-        };
 
-  return new Intl.DateTimeFormat(
-    "ja-JP-u-ca-japanese",
-    options
-  ).format(
-    date
+  const formatter =
+    new Intl.DateTimeFormat(
+      "ja-JP-u-ca-japanese",
+      {
+        era: "long",
+        year: "numeric"
+      }
+    );
+
+
+  const parts =
+    formatter.formatToParts(
+      date
+    );
+
+
+  const era =
+    parts.find(
+      function (part) {
+        return part.type === "era";
+      }
+    )?.value || "";
+
+
+  const eraYear =
+    parts.find(
+      function (part) {
+        return part.type === "year";
+      }
+    )?.value || "";
+
+
+  if (includeDay) {
+
+    return (
+      era +
+      eraYear +
+      "年" +
+      month +
+      "月" +
+      day +
+      "日"
+    );
+
+  }
+
+
+  return (
+    era +
+    eraYear +
+    "年" +
+    month +
+    "月"
   );
 
 }
-
 
 // ========================================
 // 初度登録年月の表示更新
@@ -6441,11 +6475,11 @@ const japaneseYear =
         );
 
 
-    const value =
-      staffFirstRegistrationViewYear +
-      "-" +
-      monthValue;
-
+const value =
+  staffFirstRegistrationViewYear +
+  "-" +
+  monthValue +
+  "-01";
 
     if (
       selectedValue === value
