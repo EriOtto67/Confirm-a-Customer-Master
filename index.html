@@ -6356,7 +6356,8 @@ function updateInspectionExpiryDateDisplay() {
 // ========================================
 
 function getJapaneseEraYear(
-  year
+  year,
+  month
 ) {
 
   return new Intl.DateTimeFormat(
@@ -6368,21 +6369,35 @@ function getJapaneseEraYear(
   ).format(
     new Date(
       year,
-      0,
+      month - 1,
       1
     )
   );
 
 }
 
-
 function renderFirstRegistrationCalendar() {
 
-  const japaneseYear =
-    getJapaneseEraYear(
-      staffFirstRegistrationViewYear
-    );
+const selectedValue =
+  staffFirstRegistrationDateInput.value;
 
+
+const displayMonth =
+  selectedValue &&
+  Number(
+    selectedValue.split("-")[0]
+  ) === staffFirstRegistrationViewYear
+    ? Number(
+        selectedValue.split("-")[1]
+      )
+    : 1;
+
+
+const japaneseYear =
+  getJapaneseEraYear(
+    staffFirstRegistrationViewYear,
+    displayMonth
+  );
 
   staffFirstRegistrationCalendarYear
     .textContent =
@@ -6395,12 +6410,6 @@ function renderFirstRegistrationCalendar() {
   staffFirstRegistrationMonthGrid
     .innerHTML =
     "";
-
-
-  const selectedValue =
-    staffFirstRegistrationDateInput
-      .value;
-
 
   for (
     let month = 1;
