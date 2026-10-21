@@ -5498,25 +5498,11 @@ const staffEditPostalCode2Input =
     "staffEditPostalCode2"
   );
 
-
-// ========================================
-// スタッフ側 郵便番号入力制限
-// ========================================
-
-restrictPostalCodePartInput(
-  staffEditPostalCode1Input
-);
-
-restrictPostalCodePartInput(
-  staffEditPostalCode2Input
-);
-
-
 const staffEditAddress1Input =
   document.getElementById(
     "staffEditAddress1"
   );
-    
+
 const staffEditAddress2Input =
   document.getElementById(
     "staffEditAddress2"
@@ -5820,6 +5806,19 @@ document
 
 
 // ========================================
+// スタッフ側 郵便番号入力制限
+// ========================================
+
+restrictPostalCodePartInput(
+  staffEditPostalCode1Input
+);
+
+restrictPostalCodePartInput(
+  staffEditPostalCode2Input
+);
+
+
+// ========================================
 // スタッフ側 電話番号入力制限
 // 半角数字のみ・次の枠へ自動移動しない
 // ========================================
@@ -5827,7 +5826,7 @@ document
 restrictPhonePartInput(
   staffEditPhoneHome1Input
 );
-
+    
 restrictPhonePartInput(
   staffEditPhoneHome2Input
 );
