@@ -318,11 +318,45 @@
     outline: none;
   }
 
-  .edit-form-group input:focus {
-    border-color: #00c853;
-    box-shadow: 0 0 0 2px rgba(0, 200, 83, 0.12);
+.edit-form-group input:focus {
+  border-color: #00c853;
+  box-shadow: 0 0 0 2px rgba(0, 200, 83, 0.12);
+}
+
+/* ====================================== */
+/* 電話番号3分割入力 */
+/* ====================================== */
+
+.phone-input-row {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.phone-input-row input {
+  width: 100%;
+  min-width: 0;
+  text-align: center;
+}
+
+.phone-separator {
+  color: #666666;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  .phone-input-row {
+    gap: 6px;
   }
 
+  .phone-input-row input {
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+}
   .edit-message {
     min-height: 20px;
     margin-top: 8px;
@@ -992,26 +1026,51 @@
           class="edit-panel"
         >
 
-          <div class="edit-form-group">
+<div class="edit-form-group">
 
-            <label for="editPhoneHome">
-              自宅番号
-            </label>
+  <label for="editPhoneHome1">
+    自宅番号
+  </label>
 
-            <input
-              type="tel"
-              id="editPhoneHome"
-              inputmode="tel"
-              placeholder="例：0748-12-3456"
-            >
+  <div class="phone-input-row">
 
-            <div
-              id="editPhoneHomeMessage"
-              class="edit-message"
-            ></div>
+    <input
+      type="text"
+      id="editPhoneHome1"
+      inputmode="numeric"
+      maxlength="4"
+      placeholder="0748"
+    >
 
-          </div>
+    <span class="phone-separator">-</span>
 
+    <input
+      type="text"
+      id="editPhoneHome2"
+      inputmode="numeric"
+      maxlength="4"
+      placeholder="12"
+    >
+
+    <span class="phone-separator">-</span>
+
+    <input
+      type="text"
+      id="editPhoneHome3"
+      inputmode="numeric"
+      maxlength="4"
+      placeholder="3456"
+    >
+
+  </div>
+
+  <div
+    id="editPhoneHomeMessage"
+    class="edit-message"
+  ></div>
+
+</div>
+          
           <div class="edit-button-row">
 
             <button
@@ -1067,26 +1126,51 @@
           class="edit-panel"
         >
 
-          <div class="edit-form-group">
+<div class="edit-form-group">
 
-            <label for="editPhoneMobile">
-              携帯番号
-            </label>
+  <label for="editPhoneMobile1">
+    携帯番号
+  </label>
 
-            <input
-              type="tel"
-              id="editPhoneMobile"
-              inputmode="tel"
-              placeholder="例：090-1234-5678"
-            >
+  <div class="phone-input-row">
 
-            <div
-              id="editPhoneMobileMessage"
-              class="edit-message"
-            ></div>
+    <input
+      type="text"
+      id="editPhoneMobile1"
+      inputmode="numeric"
+      maxlength="4"
+      placeholder="090"
+    >
 
-          </div>
+    <span class="phone-separator">-</span>
 
+    <input
+      type="text"
+      id="editPhoneMobile2"
+      inputmode="numeric"
+      maxlength="4"
+      placeholder="1234"
+    >
+
+    <span class="phone-separator">-</span>
+
+    <input
+      type="text"
+      id="editPhoneMobile3"
+      inputmode="numeric"
+      maxlength="4"
+      placeholder="5678"
+    >
+
+  </div>
+
+  <div
+    id="editPhoneMobileMessage"
+    class="edit-message"
+  ></div>
+
+</div>
+          
           <div class="edit-button-row">
 
             <button
@@ -1827,25 +1911,50 @@
       class="edit-panel staff-edit-panel"
     >
 
-      <div class="edit-form-group">
+<div class="edit-form-group">
 
-        <label for="staffEditPhoneHome">
-          自宅番号
-        </label>
+  <label for="staffEditPhoneHome1">
+    自宅番号
+  </label>
 
-        <input
-          type="tel"
-          id="staffEditPhoneHome"
-          inputmode="tel"
-          placeholder="例：0748-12-3456"
-        >
+  <div class="phone-input-row">
 
-        <div
-          id="staffEditPhoneHomeMessage"
-          class="edit-message"
-        ></div>
+    <input
+      type="text"
+      id="staffEditPhoneHome1"
+      inputmode="numeric"
+      maxlength="4"
+      placeholder="0748"
+    >
 
-      </div>
+    <span class="phone-separator">-</span>
+
+    <input
+      type="text"
+      id="staffEditPhoneHome2"
+      inputmode="numeric"
+      maxlength="4"
+      placeholder="12"
+    >
+
+    <span class="phone-separator">-</span>
+
+    <input
+      type="text"
+      id="staffEditPhoneHome3"
+      inputmode="numeric"
+      maxlength="4"
+      placeholder="3456"
+    >
+
+  </div>
+
+  <div
+    id="staffEditPhoneHomeMessage"
+    class="edit-message"
+  ></div>
+
+</div>
 
       <div class="edit-button-row">
 
@@ -1904,25 +2013,50 @@
       class="edit-panel staff-edit-panel"
     >
 
-      <div class="edit-form-group">
+<div class="edit-form-group">
 
-        <label for="staffEditPhoneMobile">
-          携帯番号
-        </label>
+  <label for="staffEditPhoneMobile1">
+    携帯番号
+  </label>
 
-        <input
-          type="tel"
-          id="staffEditPhoneMobile"
-          inputmode="tel"
-          placeholder="例：090-1234-5678"
-        >
+  <div class="phone-input-row">
 
-        <div
-          id="staffEditPhoneMobileMessage"
-          class="edit-message"
-        ></div>
+    <input
+      type="text"
+      id="staffEditPhoneMobile1"
+      inputmode="numeric"
+      maxlength="4"
+      placeholder="090"
+    >
 
-      </div>
+    <span class="phone-separator">-</span>
+
+    <input
+      type="text"
+      id="staffEditPhoneMobile2"
+      inputmode="numeric"
+      maxlength="4"
+      placeholder="1234"
+    >
+
+    <span class="phone-separator">-</span>
+
+    <input
+      type="text"
+      id="staffEditPhoneMobile3"
+      inputmode="numeric"
+      maxlength="4"
+      placeholder="5678"
+    >
+
+  </div>
+
+  <div
+    id="staffEditPhoneMobileMessage"
+    class="edit-message"
+  ></div>
+
+</div>
 
       <div class="edit-button-row">
 
@@ -2899,12 +3033,37 @@ setText(
     const editNameInput =
       document.getElementById("editName");
 
-    const editPhoneHomeInput =
-      document.getElementById("editPhoneHome");
+const editPhoneHome1Input =
+  document.getElementById(
+    "editPhoneHome1"
+  );
 
-    const editPhoneMobileInput =
-      document.getElementById("editPhoneMobile");
+const editPhoneHome2Input =
+  document.getElementById(
+    "editPhoneHome2"
+  );
 
+const editPhoneHome3Input =
+  document.getElementById(
+    "editPhoneHome3"
+  );
+
+
+const editPhoneMobile1Input =
+  document.getElementById(
+    "editPhoneMobile1"
+  );
+
+const editPhoneMobile2Input =
+  document.getElementById(
+    "editPhoneMobile2"
+  );
+
+const editPhoneMobile3Input =
+  document.getElementById(
+    "editPhoneMobile3"
+  );
+    
     const editPostalCodeInput =
       document.getElementById("editPostalCode");
 
@@ -3126,21 +3285,28 @@ staffVehicleToggle.addEventListener(
       }
 
 
-      if (editorId === "phoneHomeEditor") {
+if (editorId === "phoneHomeEditor") {
 
-        editPhoneHomeInput.value =
-          getDisplayedValue("phoneHome");
+  setPhoneParts(
+    getDisplayedValue("phoneHome"),
+    editPhoneHome1Input,
+    editPhoneHome2Input,
+    editPhoneHome3Input
+  );
 
-      }
+}
 
 
-      if (editorId === "phoneMobileEditor") {
+if (editorId === "phoneMobileEditor") {
 
-        editPhoneMobileInput.value =
-          getDisplayedValue("phoneMobile");
+  setPhoneParts(
+    getDisplayedValue("phoneMobile"),
+    editPhoneMobile1Input,
+    editPhoneMobile2Input,
+    editPhoneMobile3Input
+  );
 
-      }
-
+}
 
       if (editorId === "addressEditor") {
 
@@ -3245,49 +3411,194 @@ staffVehicleToggle.addEventListener(
       });
 
 
-    function checkPhoneNumber(value) {
+// ========================================
+// 電話番号の各枠を半角数字のみに制限
+// 自動的に次の枠へは移動しない
+// ========================================
 
-      if (value === "") {
+function restrictPhonePartInput(input) {
 
-        return true;
+  input.addEventListener(
+    "input",
+    function () {
 
-      }
-
-      if (!/^[0-9-]+$/.test(value)) {
-
-        return false;
-
-      }
-
-      const hyphenCount =
-        (value.match(/-/g) || []).length;
-
-      return hyphenCount === 2;
+      this.value =
+        this.value.replace(
+          /[^0-9]/g,
+          ""
+        );
 
     }
+  );
+
+}
 
 
-    function restrictPhoneInput(input) {
+// ========================================
+// 電話番号3枠をハイフン付きで結合
+// ========================================
 
-      input.addEventListener(
-        "input",
-        function () {
+function getPhoneNumber(
+  firstInput,
+  secondInput,
+  thirdInput
+) {
 
-          this.value =
-            this.value.replace(
-              /[^0-9-]/g,
-              ""
-            );
+  const first =
+    firstInput.value.trim();
 
-        }
-      );
+  const second =
+    secondInput.value.trim();
 
-    }
+  const third =
+    thirdInput.value.trim();
 
 
-    restrictPhoneInput(editPhoneHomeInput);
+  if (
+    first === "" &&
+    second === "" &&
+    third === ""
+  ) {
 
-    restrictPhoneInput(editPhoneMobileInput);
+    return "";
+
+  }
+
+
+  return [
+    first,
+    second,
+    third
+  ].join("-");
+
+}
+
+
+// ========================================
+// ハイフン付き電話番号を3枠へ設定
+// ========================================
+
+function setPhoneParts(
+  phoneNumber,
+  firstInput,
+  secondInput,
+  thirdInput
+) {
+
+  const parts =
+    phoneNumber
+      ? phoneNumber.split("-")
+      : [];
+
+
+  firstInput.value =
+    parts[0] || "";
+
+  secondInput.value =
+    parts[1] || "";
+
+  thirdInput.value =
+    parts[2] || "";
+
+}
+
+
+// ========================================
+// 電話番号3枠を確認
+// 任意項目なので、全枠空欄なら正常
+// 入力する場合は全枠入力し、合計10桁または11桁
+// ========================================
+
+function checkPhoneParts(
+  firstInput,
+  secondInput,
+  thirdInput
+) {
+
+  const first =
+    firstInput.value.trim();
+
+  const second =
+    secondInput.value.trim();
+
+  const third =
+    thirdInput.value.trim();
+
+
+  if (
+    first === "" &&
+    second === "" &&
+    third === ""
+  ) {
+
+    return true;
+
+  }
+
+
+  if (
+    first === "" ||
+    second === "" ||
+    third === ""
+  ) {
+
+    return false;
+
+  }
+
+
+  if (
+    !/^[0-9]+$/.test(first) ||
+    !/^[0-9]+$/.test(second) ||
+    !/^[0-9]+$/.test(third)
+  ) {
+
+    return false;
+
+  }
+
+
+  const totalLength =
+    first.length +
+    second.length +
+    third.length;
+
+
+  return (
+    totalLength === 10 ||
+    totalLength === 11
+  );
+
+}
+
+
+// ========================================
+// お客さま側の電話番号入力制限
+// ========================================
+
+restrictPhonePartInput(
+  editPhoneHome1Input
+);
+
+restrictPhonePartInput(
+  editPhoneHome2Input
+);
+
+restrictPhonePartInput(
+  editPhoneHome3Input
+);
+
+restrictPhonePartInput(
+  editPhoneMobile1Input
+);
+
+restrictPhonePartInput(
+  editPhoneMobile2Input
+);
+
+restrictPhonePartInput(
+  editPhoneMobile3Input
+);
 
 
         // ========================================
@@ -3835,14 +4146,18 @@ staffVehicleToggle.addEventListener(
   );
 
 
-    document
+document
   .getElementById("savePhoneHomeButton")
   .addEventListener(
     "click",
     async function () {
 
       const value =
-        editPhoneHomeInput.value.trim();
+        getPhoneNumber(
+          editPhoneHome1Input,
+          editPhoneHome2Input,
+          editPhoneHome3Input
+        );
 
       const message =
         document.getElementById(
@@ -3857,12 +4172,18 @@ staffVehicleToggle.addEventListener(
       message.textContent = "";
 
 
-      if (!checkPhoneNumber(value)) {
+      if (
+        !checkPhoneParts(
+          editPhoneHome1Input,
+          editPhoneHome2Input,
+          editPhoneHome3Input
+        )
+      ) {
 
         message.textContent =
-          "自宅番号は半角数字と2個のハイフンで入力して下さい。例：0748-12-3456";
+          "自宅番号は3つの枠すべてに半角数字で入力し、合計10桁または11桁にして下さい。";
 
-        editPhoneHomeInput.focus();
+        editPhoneHome1Input.focus();
 
         return;
 
@@ -3977,8 +4298,7 @@ staffVehicleToggle.addEventListener(
     }
   );
 
-
-    document
+document
   .getElementById(
     "savePhoneMobileButton"
   )
@@ -3987,7 +4307,11 @@ staffVehicleToggle.addEventListener(
     async function () {
 
       const value =
-        editPhoneMobileInput.value.trim();
+        getPhoneNumber(
+          editPhoneMobile1Input,
+          editPhoneMobile2Input,
+          editPhoneMobile3Input
+        );
 
       const message =
         document.getElementById(
@@ -4002,12 +4326,18 @@ staffVehicleToggle.addEventListener(
       message.textContent = "";
 
 
-      if (!checkPhoneNumber(value)) {
+      if (
+        !checkPhoneParts(
+          editPhoneMobile1Input,
+          editPhoneMobile2Input,
+          editPhoneMobile3Input
+        )
+      ) {
 
         message.textContent =
-          "携帯番号は半角数字と2個のハイフンで入力して下さい。例：090-1234-5678";
+          "携帯番号は3つの枠すべてに半角数字で入力し、合計10桁または11桁にして下さい。";
 
-        editPhoneMobileInput.focus();
+        editPhoneMobile1Input.focus();
 
         return;
 
@@ -4121,7 +4451,6 @@ staffVehicleToggle.addEventListener(
 
     }
   );
-
 
     // ========================================
 // 郵便番号・住所を保存
@@ -4927,16 +5256,37 @@ const staffEditNameInput =
     "staffEditName"
   );
 
-const staffEditPhoneHomeInput =
+const staffEditPhoneHome1Input =
   document.getElementById(
-    "staffEditPhoneHome"
+    "staffEditPhoneHome1"
   );
 
-const staffEditPhoneMobileInput =
+const staffEditPhoneHome2Input =
   document.getElementById(
-    "staffEditPhoneMobile"
+    "staffEditPhoneHome2"
   );
 
+const staffEditPhoneHome3Input =
+  document.getElementById(
+    "staffEditPhoneHome3"
+  );
+
+
+const staffEditPhoneMobile1Input =
+  document.getElementById(
+    "staffEditPhoneMobile1"
+  );
+
+const staffEditPhoneMobile2Input =
+  document.getElementById(
+    "staffEditPhoneMobile2"
+  );
+
+const staffEditPhoneMobile3Input =
+  document.getElementById(
+    "staffEditPhoneMobile3"
+  );
+    
 const staffEditPostalCodeInput =
   document.getElementById(
     "staffEditPostalCode"
@@ -5061,31 +5411,38 @@ function setStaffEditorCurrentValue(
   }
 
 
-  if (
-    editorId ===
-    "staffPhoneHomeEditor"
-  ) {
+if (
+  editorId ===
+  "staffPhoneHomeEditor"
+) {
 
-    staffEditPhoneHomeInput.value =
-      getDisplayedValue(
-        "staffCustomerPhoneHome"
-      );
+  setPhoneParts(
+    getDisplayedValue(
+      "staffCustomerPhoneHome"
+    ),
+    staffEditPhoneHome1Input,
+    staffEditPhoneHome2Input,
+    staffEditPhoneHome3Input
+  );
 
-  }
+}
 
 
-  if (
-    editorId ===
-    "staffPhoneMobileEditor"
-  ) {
+if (
+  editorId ===
+  "staffPhoneMobileEditor"
+) {
 
-    staffEditPhoneMobileInput.value =
-      getDisplayedValue(
-        "staffCustomerPhoneMobile"
-      );
+  setPhoneParts(
+    getDisplayedValue(
+      "staffCustomerPhoneMobile"
+    ),
+    staffEditPhoneMobile1Input,
+    staffEditPhoneMobile2Input,
+    staffEditPhoneMobile3Input
+  );
 
-  }
-
+}
 
   if (
     editorId ===
@@ -5242,16 +5599,33 @@ document
 
 // ========================================
 // スタッフ側 電話番号入力制限
+// 半角数字のみ・次の枠へ自動移動しない
 // ========================================
 
-restrictPhoneInput(
-  staffEditPhoneHomeInput
+restrictPhonePartInput(
+  staffEditPhoneHome1Input
 );
 
-restrictPhoneInput(
-  staffEditPhoneMobileInput
+restrictPhonePartInput(
+  staffEditPhoneHome2Input
 );
 
+restrictPhonePartInput(
+  staffEditPhoneHome3Input
+);
+
+restrictPhonePartInput(
+  staffEditPhoneMobile1Input
+);
+
+restrictPhonePartInput(
+  staffEditPhoneMobile2Input
+);
+
+restrictPhonePartInput(
+  staffEditPhoneMobile3Input
+);
+    
     // ========================================
 // 車両詳細情報 入力欄
 // ========================================
@@ -5907,9 +6281,11 @@ document
     async function () {
 
       const value =
-        staffEditPhoneHomeInput
-          .value
-          .trim();
+        getPhoneNumber(
+          staffEditPhoneHome1Input,
+          staffEditPhoneHome2Input,
+          staffEditPhoneHome3Input
+        );
 
       const message =
         document.getElementById(
@@ -5919,12 +6295,18 @@ document
       message.textContent = "";
 
 
-      if (!checkPhoneNumber(value)) {
+      if (
+        !checkPhoneParts(
+          staffEditPhoneHome1Input,
+          staffEditPhoneHome2Input,
+          staffEditPhoneHome3Input
+        )
+      ) {
 
         message.textContent =
-          "自宅番号は半角数字と2個のハイフンで入力して下さい。例：0748-12-3456";
+          "自宅番号は3つの枠すべてに半角数字で入力し、合計10桁または11桁にして下さい。";
 
-        staffEditPhoneHomeInput.focus();
+        staffEditPhoneHome1Input.focus();
 
         return;
 
@@ -5945,7 +6327,6 @@ document
     }
   );
 
-
 // ========================================
 // スタッフ側 携帯番号保存
 // ========================================
@@ -5959,9 +6340,11 @@ document
     async function () {
 
       const value =
-        staffEditPhoneMobileInput
-          .value
-          .trim();
+        getPhoneNumber(
+          staffEditPhoneMobile1Input,
+          staffEditPhoneMobile2Input,
+          staffEditPhoneMobile3Input
+        );
 
       const message =
         document.getElementById(
@@ -5971,12 +6354,18 @@ document
       message.textContent = "";
 
 
-      if (!checkPhoneNumber(value)) {
+      if (
+        !checkPhoneParts(
+          staffEditPhoneMobile1Input,
+          staffEditPhoneMobile2Input,
+          staffEditPhoneMobile3Input
+        )
+      ) {
 
         message.textContent =
-          "携帯番号は半角数字と2個のハイフンで入力して下さい。例：090-1234-5678";
+          "携帯番号は3つの枠すべてに半角数字で入力し、合計10桁または11桁にして下さい。";
 
-        staffEditPhoneMobileInput.focus();
+        staffEditPhoneMobile1Input.focus();
 
         return;
 
@@ -5996,7 +6385,6 @@ document
 
     }
   );
-
 
 // ========================================
 // スタッフ側 車名保存
