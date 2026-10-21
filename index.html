@@ -2210,41 +2210,6 @@
     aria-live="polite"
   ></div>
 
-</div><div class="edit-form-group">
-
-  <label for="staffEditPostalCode1">
-    郵便番号
-  </label>
-
-  <div class="zipcode-input-row">
-
-    <input
-      type="text"
-      id="staffEditPostalCode1"
-      inputmode="numeric"
-      maxlength="3"
-      placeholder="523"
-      autocomplete="postal-code"
-    >
-
-    <span class="zipcode-separator">-</span>
-
-    <input
-      type="text"
-      id="staffEditPostalCode2"
-      inputmode="numeric"
-      maxlength="4"
-      placeholder="0892"
-    >
-
-  </div>
-
-  <div
-    id="staffEditPostalCodeMessage"
-    class="zip-message"
-    aria-live="polite"
-  ></div>
-
 </div>
 
       <div class="edit-form-group">
@@ -3721,19 +3686,6 @@ restrictPostalCodePartInput(
 
 restrictPostalCodePartInput(
   editPostalCode2Input
-);
-
-
-// ========================================
-// スタッフ側 郵便番号入力制限
-// ========================================
-
-restrictPostalCodePartInput(
-  staffEditPostalCode1Input
-);
-
-restrictPostalCodePartInput(
-  staffEditPostalCode2Input
 );
     
 // ========================================
@@ -5545,12 +5497,26 @@ const staffEditPostalCode2Input =
   document.getElementById(
     "staffEditPostalCode2"
   );
-    
+
+
+// ========================================
+// スタッフ側 郵便番号入力制限
+// ========================================
+
+restrictPostalCodePartInput(
+  staffEditPostalCode1Input
+);
+
+restrictPostalCodePartInput(
+  staffEditPostalCode2Input
+);
+
+
 const staffEditAddress1Input =
   document.getElementById(
     "staffEditAddress1"
   );
-
+    
 const staffEditAddress2Input =
   document.getElementById(
     "staffEditAddress2"
@@ -7072,11 +7038,224 @@ document
 
       }
 
+
       // ========================================
       // 住所1・住所2
-      // ====================================
+      // ========================================
 
-    loadCustomer();
+      if (
+        address1 === "" ||
+        address2 === ""
+      ) {
+
+        message.textContent =
+          "郵便番号から住所を取得して下さい。";
+
+        staffEditPostalCode1Input.focus();
+
+        return;
+
+      }
+
+
+      // ========================================
+      // 住所4
+      // ========================================
+
+      if (addressManual === "") {
+
+        message.textContent =
+          "住所4（丁目・番地・マンション・アパート）を入力して下さい。";
+
+        staffEditAddressManualInput.focus();
+
+        return;
+
+      }
+
+
+      try {
+
+        saveButton.disabled = true;
+
+        saveButton.textContent =
+          "保存中...";
+
+
+        const response =
+          await fetch(
+            UPDATE_FLOW_URL,
+            {
+
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body: JSON.stringify({
+                vehicleId: vehicleId,
+                field: "address",
+                postalCode: postalCode,
+                address1: address1,
+                address2: address2,
+                address3: address3,
+                addressManual: addressManual
+              })
+
+            }
+          );
+
+
+        const responseText =
+          await response.text();
+
+
+        console.log(
+          "スタッフ住所更新 HTTPステータス:",
+          response.status
+        );
+
+        console.log(
+          "スタッフ住所更新 Power Automate応答:",
+          responseText
+        );
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            "更新に失敗しました。HTTPステータス：" +
+            response.status
+          );
+
+        }
+
+
+        let data;
+
+
+        try {
+
+          data =
+            JSON.parse(
+              responseText
+            );
+
+        } catch (error) {
+
+          throw new Error(
+            "Power Automateから正常なJSON応答が返されませんでした。"
+          );
+
+        }
+
+
+        if (data.success !== true) {
+
+          throw new Error(
+            "顧客マスタの住所更新に失敗しました。"
+          );
+
+        }
+
+
+        // ========================================
+        // お客さま側の住所データを更新
+        // ========================================
+
+        setText(
+          "postalCode",
+          postalCode
+        );
+
+        setText(
+          "address1",
+          address1
+        );
+
+        setText(
+          "address2",
+          address2
+        );
+
+        setText(
+          "address3",
+          address3
+        );
+
+        setText(
+          "addressManual",
+          addressManual
+        );
+
+
+        updateFullAddress();
+
+
+        // ========================================
+        // スタッフ側の表示を更新
+        // ========================================
+
+        setText(
+          "staffCustomerPostalCode",
+          postalCode
+        );
+
+        setText(
+          "staffCustomerAddress",
+          [
+            address1,
+            address2,
+            address3,
+            addressManual
+          ]
+            .filter(Boolean)
+            .join("")
+        );
+
+
+        // ========================================
+        // 編集欄を閉じる
+        // ========================================
+
+        document
+          .getElementById(
+            "staffAddressEditor"
+          )
+          .classList.remove(
+            "is-open"
+          );
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        message.textContent =
+          error && error.message
+            ? error.message
+            : "顧客マスタの住所更新に失敗しました。";
+
+      } finally {
+
+        saveButton.disabled = false;
+
+        saveButton.textContent =
+          "保存";
+
+      }
+
+    }
+  );
+
+
+// ========================================
+// 顧客情報を読み込む
+// ========================================
+
+loadCustomer();
   
   </script>
   
