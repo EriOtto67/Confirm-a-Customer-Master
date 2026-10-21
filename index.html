@@ -6055,6 +6055,11 @@ restrictPhonePartInput(
 // 車両詳細情報 入力欄
 // ========================================
 
+    const staffFirstRegistrationDateInput =
+  document.getElementById(
+    "staffFirstRegistrationDate"
+  );
+
 const staffFirstRegistrationDateButton =
   document.getElementById(
     "staffFirstRegistrationDateButton"
@@ -6133,11 +6138,6 @@ const staffInspectionExpiryDateInput =
 // カレンダー入力の表示制御
 // ========================================
 
-const staffFirstRegistrationDateDisplay =
-  document.getElementById(
-    "staffFirstRegistrationDateDisplay"
-  );
-
 const staffInspectionExpiryDateDisplay =
   document.getElementById(
     "staffInspectionExpiryDateDisplay"
@@ -6198,20 +6198,16 @@ function updateFirstRegistrationDateDisplay() {
 
   if (value === "") {
 
-    staffFirstRegistrationDateInput
+    staffFirstRegistrationDateText
+      .textContent =
+      "カレンダーから選択";
+
+
+    staffFirstRegistrationDateButton
       .classList
       .remove(
         "has-value"
       );
-
-    staffFirstRegistrationDateDisplay
-      .classList
-      .remove(
-        "has-value"
-      );
-
-    staffFirstRegistrationDateDisplay
-      .textContent = "";
 
     return;
 
@@ -6221,22 +6217,17 @@ function updateFirstRegistrationDateDisplay() {
   const parts =
     value.split("-");
 
+
   const year =
     Number(
       parts[0]
     );
 
+
   const month =
     Number(
       parts[1]
     );
-
-
-  const westernDate =
-    year +
-    "年" +
-    month +
-    "月";
 
 
   const japaneseDate =
@@ -6248,29 +6239,24 @@ function updateFirstRegistrationDateDisplay() {
     );
 
 
-  staffFirstRegistrationDateInput
-    .classList
-    .add(
-      "has-value"
-    );
-
-
-  staffFirstRegistrationDateDisplay
+  staffFirstRegistrationDateText
     .textContent =
-    westernDate +
+    year +
+    "年" +
+    month +
+    "月" +
     "（" +
     japaneseDate +
     "）";
 
 
-  staffFirstRegistrationDateDisplay
+  staffFirstRegistrationDateButton
     .classList
     .add(
       "has-value"
     );
 
 }
-
 
 // ========================================
 // 車検満了日の表示更新
