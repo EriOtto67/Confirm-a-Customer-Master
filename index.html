@@ -6720,6 +6720,8 @@ const staffEditPostalCodeMessage =
     "staffEditPostalCodeMessage"
   );
 
+    let isStaffAddressSearching =
+  false;
 
 function showStaffPostalCodeMessage(
   message,
@@ -6866,6 +6868,125 @@ async function searchStaffAddress(
   postalCode
 ) {
 
+  isStaffAddressSearching =
+    true;
+
+  showStaffPostalCodeMessage(
+    "住所を検索しています。",
+    ""
+  );
+
+
+  try {
+
+    const url =
+      "https://zipcloud.ibsnet.co.jp/api/search?zipcode=" +
+      encodeURIComponent(
+        postalCode
+      );
+
+
+    const response =
+      await fetch(
+        url
+      );
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        "通信エラー：" +
+        response.status
+      );
+
+    }
+
+
+    const result =
+      await response.json();
+
+
+    if (
+      result.status !== 200 ||
+      !result.results ||
+      result.results.length === 0
+    ) {
+
+      staffEditAddress1Input.value =
+        "";
+
+      staffEditAddress2Input.value =
+        "";
+
+      staffEditAddress3Input.value =
+        "";
+
+
+      showStaffPostalCodeMessage(
+        "該当する住所が見つかりませんでした。",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    const address =
+      result.results[0];
+
+
+    staffEditAddress1Input.value =
+      address.address1 || "";
+
+    staffEditAddress2Input.value =
+      address.address2 || "";
+
+    staffEditAddress3Input.value =
+      address.address3 || "";
+
+
+    showStaffPostalCodeMessage(
+      "住所1～3を自動入力しました。",
+      "success"
+    );
+
+
+    staffEditAddressManualInput.focus();
+
+
+  } catch (error) {
+
+    console.error(
+      error
+    );
+
+
+    staffEditAddress1Input.value =
+      "";
+
+    staffEditAddress2Input.value =
+      "";
+
+    staffEditAddress3Input.value =
+      "";
+
+
+    showStaffPostalCodeMessage(
+      "住所を取得できませんでした。通信状況を確認して下さい。",
+      "error"
+    );
+
+
+  } finally {
+
+    isStaffAddressSearching =
+      false;
+
+  }
+
+}
+    
   showStaffPostalCodeMessage(
     "住所を検索しています。",
     ""
@@ -7013,20 +7134,36 @@ document
         );
 
 
-      message.textContent = "";
+message.textContent = "";
 
 
-      // ========================================
-      // 郵便番号
-      // 左3桁・右4桁を確認
-      // ========================================
+// ========================================
+// 住所検索中
+// ========================================
 
-      if (
-        !checkPostalCodeParts(
-          staffEditPostalCode1Input,
-          staffEditPostalCode2Input
-        )
-      ) {
+if (
+  isStaffAddressSearching
+) {
+
+  message.textContent =
+    "住所を検索しています。少し待ってから保存して下さい。";
+
+  return;
+
+}
+
+
+// ========================================
+// 郵便番号
+// 左3桁・右4桁を確認
+// ========================================
+
+if (
+  !checkPostalCodeParts(
+    staffEditPostalCode1Input,
+    staffEditPostalCode2Input
+  )
+) {
 
         message.textContent =
           "郵便番号は左3桁、右4桁を半角数字で入力して下さい。";
