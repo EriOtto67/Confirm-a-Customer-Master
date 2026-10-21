@@ -821,6 +821,157 @@
   border-color: #00c853;
   box-shadow: 0 0 0 2px rgba(0, 200, 83, 0.12);
 }
+
+    /* ====================================== */
+/* 初度登録年月 専用カレンダー */
+/* ====================================== */
+
+.custom-month-picker {
+  position: relative;
+  width: 100%;
+}
+
+.custom-month-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  height: 48px;
+
+  padding: 10px 12px;
+
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+
+  color: #888888;
+  font-family: inherit;
+  font-size: 16px;
+  text-align: left;
+
+  cursor: pointer;
+}
+
+.custom-month-input.has-value {
+  color: #333333;
+}
+
+.custom-month-input:focus {
+  border-color: #00c853;
+  box-shadow: 0 0 0 2px rgba(0, 200, 83, 0.12);
+  outline: none;
+}
+
+.custom-month-icon {
+  margin-left: 12px;
+  font-size: 19px;
+}
+
+.custom-month-calendar {
+  display: none;
+
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 100;
+
+  width: 100%;
+
+  padding: 18px;
+
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.16);
+}
+
+.custom-month-calendar.is-open {
+  display: block;
+}
+
+.custom-month-calendar-header {
+  display: grid;
+  grid-template-columns: 46px 1fr 46px;
+  align-items: center;
+  gap: 10px;
+
+  margin-bottom: 18px;
+}
+
+.custom-month-calendar-year {
+  color: #333333;
+  font-size: 17px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.custom-month-nav-button {
+  width: 46px;
+  height: 42px;
+
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 6px;
+
+  color: #333333;
+  font-size: 25px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.custom-month-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.custom-month-button {
+  height: 44px;
+
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 6px;
+
+  color: #333333;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.custom-month-button:hover {
+  border-color: #00c853;
+  background-color: #f0f8f3;
+}
+
+.custom-month-button.is-selected {
+  background-color: #00b84f;
+  border-color: #00b84f;
+  color: #ffffff;
+}
+
+.custom-month-clear-button {
+  width: 100%;
+  height: 42px;
+
+  margin-top: 16px;
+
+  background-color: #777777;
+  border: none;
+  border-radius: 6px;
+
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
     
 </style>
   
@@ -2525,24 +2676,77 @@
             初度登録年月
           </label>
 
-          <div class="calendar-input-wrapper">
+<div class="custom-month-picker">
+
+  <button
+    type="button"
+    id="staffFirstRegistrationDateButton"
+    class="custom-month-input"
+  >
+    <span id="staffFirstRegistrationDateText">
+      カレンダーから選択
+    </span>
+
+    <span class="custom-month-icon">
+      🗓️
+    </span>
+  </button>
+
+
+  <div
+    id="staffFirstRegistrationCalendar"
+    class="custom-month-calendar"
+  >
+
+    <div class="custom-month-calendar-header">
+
+      <button
+        type="button"
+        id="staffFirstRegistrationPrevYear"
+        class="custom-month-nav-button"
+      >
+        ‹
+      </button>
+
+      <div
+        id="staffFirstRegistrationCalendarYear"
+        class="custom-month-calendar-year"
+      ></div>
+
+      <button
+        type="button"
+        id="staffFirstRegistrationNextYear"
+        class="custom-month-nav-button"
+      >
+        ›
+      </button>
+
+    </div>
+
+
+    <div
+      id="staffFirstRegistrationMonthGrid"
+      class="custom-month-grid"
+    ></div>
+
+
+    <button
+      type="button"
+      id="staffFirstRegistrationClear"
+      class="custom-month-clear-button"
+    >
+      選択を解除
+    </button>
+
+  </div>
+
 
   <input
-    type="month"
+    type="hidden"
     id="staffFirstRegistrationDate"
   >
 
-  <span class="calendar-placeholder">
-    カレンダーから選択
-  </span>
-
 </div>
-
-<div
-  id="staffFirstRegistrationDateDisplay"
-  class="calendar-selected-date"
-></div>
-
         </div>
 
       </div>
@@ -5851,11 +6055,50 @@ restrictPhonePartInput(
 // 車両詳細情報 入力欄
 // ========================================
 
-const staffFirstRegistrationDateInput =
+const staffFirstRegistrationDateButton =
   document.getElementById(
-    "staffFirstRegistrationDate"
+    "staffFirstRegistrationDateButton"
   );
 
+const staffFirstRegistrationDateText =
+  document.getElementById(
+    "staffFirstRegistrationDateText"
+  );
+
+const staffFirstRegistrationCalendar =
+  document.getElementById(
+    "staffFirstRegistrationCalendar"
+  );
+
+const staffFirstRegistrationCalendarYear =
+  document.getElementById(
+    "staffFirstRegistrationCalendarYear"
+  );
+
+const staffFirstRegistrationMonthGrid =
+  document.getElementById(
+    "staffFirstRegistrationMonthGrid"
+  );
+
+const staffFirstRegistrationPrevYear =
+  document.getElementById(
+    "staffFirstRegistrationPrevYear"
+  );
+
+const staffFirstRegistrationNextYear =
+  document.getElementById(
+    "staffFirstRegistrationNextYear"
+  );
+
+const staffFirstRegistrationClear =
+  document.getElementById(
+    "staffFirstRegistrationClear"
+  );
+
+
+let staffFirstRegistrationViewYear =
+  new Date().getFullYear();
+    
 const staffChassisNumberInput =
   document.getElementById(
     "staffChassisNumber"
@@ -6126,16 +6369,247 @@ function updateInspectionExpiryDateDisplay() {
 // カレンダー変更時
 // ========================================
 
-staffFirstRegistrationDateInput
+function getJapaneseEraYear(
+  year
+) {
+
+  return new Intl.DateTimeFormat(
+    "ja-JP-u-ca-japanese",
+    {
+      era: "long",
+      year: "numeric"
+    }
+  ).format(
+    new Date(
+      year,
+      0,
+      1
+    )
+  );
+
+}
+
+
+function renderFirstRegistrationCalendar() {
+
+  const japaneseYear =
+    getJapaneseEraYear(
+      staffFirstRegistrationViewYear
+    );
+
+
+  staffFirstRegistrationCalendarYear
+    .textContent =
+    staffFirstRegistrationViewYear +
+    "年（" +
+    japaneseYear +
+    "）";
+
+
+  staffFirstRegistrationMonthGrid
+    .innerHTML =
+    "";
+
+
+  const selectedValue =
+    staffFirstRegistrationDateInput
+      .value;
+
+
+  for (
+    let month = 1;
+    month <= 12;
+    month++
+  ) {
+
+    const button =
+      document.createElement(
+        "button"
+      );
+
+
+    button.type =
+      "button";
+
+    button.className =
+      "custom-month-button";
+
+    button.textContent =
+      month + "月";
+
+
+    const monthValue =
+      String(month)
+        .padStart(
+          2,
+          "0"
+        );
+
+
+    const value =
+      staffFirstRegistrationViewYear +
+      "-" +
+      monthValue;
+
+
+    if (
+      selectedValue === value
+    ) {
+
+      button.classList.add(
+        "is-selected"
+      );
+
+    }
+
+
+    button.addEventListener(
+      "click",
+      function () {
+
+        staffFirstRegistrationDateInput
+          .value =
+          value;
+
+
+        staffFirstRegistrationDateText
+          .textContent =
+          staffFirstRegistrationViewYear +
+          "年" +
+          month +
+          "月" +
+          "（" +
+          formatJapaneseCalendarDate(
+            staffFirstRegistrationViewYear,
+            month,
+            1,
+            false
+          ) +
+          "）";
+
+
+        staffFirstRegistrationDateButton
+          .classList
+          .add(
+            "has-value"
+          );
+
+
+        staffFirstRegistrationCalendar
+          .classList
+          .remove(
+            "is-open"
+          );
+
+
+        updateFirstRegistrationDateDisplay();
+
+      }
+    );
+
+
+    staffFirstRegistrationMonthGrid
+      .appendChild(
+        button
+      );
+
+  }
+
+}
+
+
+staffFirstRegistrationDateButton
   .addEventListener(
-    "change",
+    "click",
     function () {
+
+      if (
+        staffFirstRegistrationDateInput
+          .value
+      ) {
+
+        staffFirstRegistrationViewYear =
+          Number(
+            staffFirstRegistrationDateInput
+              .value
+              .split("-")[0]
+          );
+
+      }
+
+
+      renderFirstRegistrationCalendar();
+
+
+      staffFirstRegistrationCalendar
+        .classList
+        .toggle(
+          "is-open"
+        );
+
+    }
+  );
+
+
+staffFirstRegistrationPrevYear
+  .addEventListener(
+    "click",
+    function () {
+
+      staffFirstRegistrationViewYear--;
+
+      renderFirstRegistrationCalendar();
+
+    }
+  );
+
+
+staffFirstRegistrationNextYear
+  .addEventListener(
+    "click",
+    function () {
+
+      staffFirstRegistrationViewYear++;
+
+      renderFirstRegistrationCalendar();
+
+    }
+  );
+
+
+staffFirstRegistrationClear
+  .addEventListener(
+    "click",
+    function () {
+
+      staffFirstRegistrationDateInput
+        .value =
+        "";
+
+
+      staffFirstRegistrationDateText
+        .textContent =
+        "カレンダーから選択";
+
+
+      staffFirstRegistrationDateButton
+        .classList
+        .remove(
+          "has-value"
+        );
+
+
+      staffFirstRegistrationCalendar
+        .classList
+        .remove(
+          "is-open"
+        );
+
 
       updateFirstRegistrationDateDisplay();
 
     }
   );
-
 
 staffInspectionExpiryDateInput
   .addEventListener(
